@@ -1,0 +1,1938 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>iPhone 14 App Preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
+
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#202126;color:#fff;font-family:"DM Sans",Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+button:active{filter:brightness(1.18)}
+.phone-stage{width:100%;height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.phone-space{position:relative;width:420px;height:874px;flex-shrink:0}
+.iphone{
+ position:absolute;inset:0;width:420px;height:874px;padding:13px;
+ border:2px solid #85868b;border-radius:66px;
+ background:linear-gradient(120deg,#77787e,#101012 22%,#050505 70%,#55565c);
+ box-shadow:0 0 0 3px #111,0 25px 65px #0009;
+}
+.iphone:before{content:"";position:absolute;left:-6px;top:148px;width:4px;height:58px;background:#555;border-radius:3px;box-shadow:0 79px #555,0 150px #555}
+.iphone:after{content:"";position:absolute;right:-6px;top:225px;width:4px;height:95px;background:#555;border-radius:3px}
+.screen{width:390px;height:844px;border-radius:53px;background:#000;overflow:hidden;position:relative;isolation:isolate}
+.notch{position:absolute;z-index:100;top:0;left:50%;transform:translateX(-50%);width:158px;height:33px;border-radius:0 0 23px 23px;background:#000;pointer-events:none}
+.notch:after{content:"";position:absolute;right:17px;top:12px;width:8px;height:8px;border-radius:50%;background:#121a28}
+.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:135px;height:5px;border-radius:10px;background:white;z-index:99;pointer-events:none}
+
+/* The design is authored at screenshot resolution, then scaled to 390x844. */
+.app{
+ position:absolute;top:0;left:0;width:828px;height:1792px;
+ background:#000;overflow:hidden;transform:scale(.4710144928);
+ transform-origin:top left;
+}
+.page{position:absolute;inset:0;display:none;background:#000}
+.page.active{display:block}
+.top-heading{
+ position:absolute;top:125px;left:34px;right:34px;
+ display:flex;align-items:center;justify-content:space-between;
+}
+.top-heading h1{margin:0;font-size:69px;font-weight:900;letter-spacing:-3.5px;line-height:1.1}
+.bell{
+ width:89px;height:89px;border-radius:50%;background:#171717;
+ border:2px solid #333;display:grid;place-items:center;flex-shrink:0;
+}
+.bell svg{width:41px;height:41px}
+.tabs{
+ position:absolute;top:254px;left:34px;right:0;
+ display:flex;align-items:center;gap:18px;
+ overflow-x:auto;scrollbar-width:none;white-space:nowrap;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+ border:0;background:transparent;color:#b7b7b7;
+ padding:22px 27px;border-radius:55px;font-size:31px;flex-shrink:0;
+}
+.tab.active{background:#383838;color:#fff;font-weight:700}
+.tabs.account-tabs{left:34px;gap:10px}
+.account-tabs .tab{padding-left:31px;padding-right:31px}
+.send-tabs{right:128px;gap:9px}
+.send-tabs .tab{padding-left:30px;padding-right:30px}
+.top-qr{
+ position:absolute;top:260px;right:35px;width:87px;height:87px;
+ border:0;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;
+}
+.top-qr svg{width:45px;height:45px}
+.section{position:absolute;left:34px;right:34px;top:370px;bottom:190px;overflow:auto;scrollbar-width:none}
+.section::-webkit-scrollbar{display:none}
+.section.full{top:375px}
+.hidden{display:none!important}
+
+/* Accounts */
+.account-card{
+ margin-top:25px;height:632px;border-radius:52px;overflow:hidden;
+ background:linear-gradient(145deg,#292929,#171717);
+}
+.balance-card{
+ height:427px;border-radius:52px;padding:0 45px 30px;
+ display:flex;align-items:flex-end;
+ background:linear-gradient(125deg,#5bc9fa,#53b9f5 54%,#66d1fb);
+}
+.balance{color:#000;font-size:70px;font-weight:800;letter-spacing:-3px}
+.add-money{
+ width:100%;height:205px;border:0;background:transparent;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:14px;font-size:27px;
+}
+.money-icon{width:88px;height:88px;border-radius:50%;background:#3c3c3c;display:grid;place-items:center}
+.money-icon svg{width:39px;height:39px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin:51px 0 24px 10px}
+.section-heading h2,.preferences-title{font-size:35px;font-weight:700;margin:0}
+.plus{width:87px;height:87px;border:0;border-radius:50%;background:#3b3b3b;font-size:55px;font-weight:300}
+.linked-box{
+ min-height:187px;border-radius:51px;background:#353535;
+ display:flex;align-items:center;padding:34px 36px;font-size:31px;line-height:1.35;
+}
+.preferences-title{margin:56px 0 28px 10px}
+.preference-card{
+ height:265px;border-radius:52px;background:#303030;
+ padding:51px 35px;display:flex;gap:26px;align-items:flex-start;
+}
+.cart-icon{width:104px;height:104px;border-radius:50%;background:#555;display:grid;place-items:center;flex-shrink:0}
+.cart-icon svg{width:48px;height:48px}
+.preference-text{font-size:31px;padding-top:8px}
+.preference-text small{display:block;color:#bcbcbc;font-size:23px;margin-top:10px}
+
+/* Activity */
+.empty-activity{
+ position:absolute;top:690px;left:35px;right:35px;
+ display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.receipt-icon{
+ width:137px;height:137px;border-radius:50%;background:#383838;
+ display:grid;place-items:center;margin-bottom:43px;
+}
+.receipt-icon svg{width:58px;height:58px}
+.empty-activity h2{font-size:54px;letter-spacing:-2px;margin:0 0 12px;font-weight:900}
+.empty-activity p{font-size:36px;line-height:1.38;color:#b4b4b4;margin:0}
+
+/* Subscriptions */
+.subscriptions-content{position:absolute;top:435px;left:34px;right:34px;text-align:center}
+.subscription-art{
+ height:385px;position:relative;margin-bottom:45px;
+ display:flex;justify-content:center;align-items:center;
+}
+.art-tile{
+ position:absolute;width:152px;height:114px;border-radius:28px;
+ display:grid;place-items:center;font-size:43px;font-weight:900;
+ box-shadow:0 17px 0 #101010,0 25px 18px #0008;
+ transform:rotate(-13deg) skew(-5deg);
+}
+.art-tile:nth-child(1){top:4px;left:305px;background:#285cf7}
+.art-tile:nth-child(2){top:95px;left:165px;background:#f52228}
+.art-tile:nth-child(3){top:120px;left:435px;background:#232323;color:#1ed760}
+.art-tile:nth-child(4){top:220px;left:37px;background:#eee;color:#2685e8}
+.art-tile:nth-child(5){top:258px;left:182px;background:#079b62;font-size:30px}
+.art-tile:nth-child(6){top:243px;left:468px;background:#008a9b;font-size:31px}
+.art-tile:nth-child(7){top:304px;left:327px;background:#222;color:#f33}
+.art-tile:nth-child(8){top:147px;left:596px;background:#f75b00}
+.subscriptions-content h2{font-size:69px;line-height:1.05;font-weight:900;letter-spacing:-3px;margin:0}
+
+/* Send: More */
+.send-option{
+ width:100%;height:169px;border:0;border-radius:51px;
+ background:#1b1b1b;display:flex;align-items:center;
+ gap:26px;padding:0 34px;text-align:left;font-size:31px;margin-bottom:27px;
+}
+.send-option-icon{
+ width:103px;height:103px;border-radius:50%;background:#4b4b4b;
+ display:grid;place-items:center;flex-shrink:0;
+}
+.send-option-icon svg{width:46px;height:46px}
+
+/* Send: Contacts */
+.contact-search{
+ width:100%;height:104px;border:2px solid #424242;
+ border-radius:70px;display:flex;align-items:center;gap:22px;padding:0 33px;
+}
+.contact-search svg{width:43px;height:43px;flex-shrink:0}
+.contact-search input{width:100%;border:0;outline:0;background:transparent;color:white;font-size:31px}
+.contact-search input::placeholder{color:#aaa}
+.contacts-intro{text-align:center;margin-top:50px}
+.blue-coin{
+ width:137px;height:137px;border-radius:50%;background:#5bc9fa;
+ margin:auto;display:grid;place-items:center;font-size:65px;font-weight:800;
+}
+.contacts-intro h2{font-size:52px;letter-spacing:-2px;margin:26px 0 72px;font-weight:900}
+.contact-card{margin-top:0}
+.contact-card .sub{color:#aaa;font-size:29px;margin-top:8px}
+.contact-card .send-option-icon svg{width:50px;height:50px}
+
+/* Send: Transfer */
+.transfer-amount{
+ position:absolute;top:530px;left:0;right:0;text-align:center;
+ display:flex;justify-content:center;align-items:flex-start;
+ font-size:166px;line-height:1;font-weight:800;letter-spacing:-7px;
+}
+.transfer-amount small{font-size:69px;letter-spacing:-2px;margin:10px 0 0 8px}
+.currency-select{
+ position:absolute;top:730px;left:50%;transform:translateX(-50%);
+ border:2px solid #303030;border-radius:50px;padding:15px 20px;
+ display:flex;align-items:center;gap:16px;background:#000;font-size:29px;
+}
+.flag{
+ display:inline-block;width:38px;height:38px;border-radius:50%;
+ background:linear-gradient(to right,transparent 0 30%,#fecc00 30% 43%,transparent 43%),
+ linear-gradient(to bottom,#006aa7 0 41%,#fecc00 41% 55%,#006aa7 55%);
+}
+.transfer-controls{position:absolute;left:34px;right:34px;bottom:200px}
+.number-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 17px}
+.number-key{
+ height:102px;border:0;border-radius:100px;background:#1b1b1b;
+ font-size:55px;font-weight:800;display:grid;place-items:center;
+}
+.number-key svg{width:45px;height:45px}
+.transfer-actions{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:50px}
+.white-button{
+ height:102px;border:0;border-radius:100px;background:#fff;color:#000;
+ font-size:31px;font-weight:800;
+}
+
+/* Send: Split */
+.split-scroll{top:375px;bottom:315px}
+.split-illustration{width:500px;height:495px;position:relative;margin:0 auto 30px}
+.split-ring{
+ position:absolute;inset:32px;border:62px dashed #5bc9fa;
+ border-radius:50%;transform:rotate(16deg);
+}
+.split-person{
+ position:absolute;width:116px;height:116px;border:10px solid white;
+ border-radius:50%;display:grid;place-items:center;background:#555;font-size:57px;
+}
+.split-person.p1{top:8px;left:100px}
+.split-person.p2{top:110px;right:2px}
+.split-person.p3{bottom:0;right:90px}
+.split-person.p4{bottom:85px;left:0}
+.split-receipt{
+ position:absolute;top:180px;left:175px;width:180px;height:145px;
+ background:#f4ece1;color:#333;transform:rotate(19deg);
+ padding:20px 13px;font-size:18px;text-align:left;box-shadow:0 10px 25px #0006;
+}
+.split-receipt hr{border:0;border-top:2px dashed #999}
+.split-title{
+ font-size:88px;line-height:.96;letter-spacing:-4px;
+ font-weight:900;margin:15px 17px 35px;
+}
+.split-title span{color:#5bc9fa}
+.split-description{font-size:32px;line-height:1.35;margin:0 17px 55px}
+.split-info{border:2px solid #555;background:#1b1b1b;border-radius:54px;padding:33px}
+.split-info-row{display:flex;align-items:center;gap:32px;font-size:31px;line-height:1.35;margin-bottom:30px}
+.split-info-row:last-child{margin-bottom:0}
+.split-info-row svg{width:48px;height:48px;flex-shrink:0}
+.split-start{
+ position:absolute;bottom:205px;left:34px;right:34px;width:calc(100% - 68px);
+ height:102px;background:white;color:black;border:0;border-radius:100px;
+ font-size:31px;font-weight:800;
+}
+
+/* Bottom navigation */
+.bottom-nav{
+ position:absolute;bottom:35px;left:45px;right:43px;height:135px;
+ display:flex;justify-content:space-between;align-items:center;z-index:20;
+ pointer-events:none;
+}
+.nav-pill{
+ width:401px;height:133px;border:2px solid #333;border-radius:80px;
+ background:#151515;display:flex;padding:7px;pointer-events:auto;
+}
+.nav-item{
+ flex:1;border:0;background:transparent;border-radius:75px;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:8px;font-size:23px;
+}
+.nav-item.active{background:#393939}
+.nav-item svg{width:48px;height:48px}
+.nav-qr{
+ width:133px;height:133px;border:2px solid #333;border-radius:50%;
+ background:#181818;display:grid;place-items:center;pointer-events:auto;
+}
+.nav-qr svg{width:57px;height:57px}
+
+/* Add Money */
+.money-screen{
+ position:absolute;inset:0;z-index:45;background:#000;display:none;
+}
+.money-screen.open{display:block}
+.close-circle{
+ position:absolute;top:101px;right:35px;width:94px;height:94px;
+ border-radius:50%;background:#191919;border:2px solid #343434;
+ display:grid;place-items:center;
+}
+.close-circle svg{width:45px;height:45px}
+.money-display{
+ position:absolute;top:470px;left:0;right:0;text-align:center;
+ display:flex;justify-content:center;align-items:flex-start;
+ font-size:170px;line-height:1;font-weight:900;letter-spacing:-6px;
+}
+.money-display small{font-size:70px;margin:8px 0 0 10px;letter-spacing:-2px}
+.money-sek{
+ position:absolute;top:662px;left:0;right:0;display:flex;
+ align-items:center;justify-content:center;gap:16px;font-size:28px;
+}
+.money-presets{
+ position:absolute;left:34px;right:34px;bottom:711px;
+ display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+}
+.preset{
+ height:112px;border:2px solid #484848;border-radius:25px;
+ background:#1b1b1b;font-size:31px;font-weight:700;
+}
+.preset.selected{border-color:#fff}
+.money-keypad{position:absolute;left:34px;right:34px;bottom:213px}
+.money-keypad .number-grid{gap:18px}
+.money-next{
+ position:absolute;bottom:64px;left:34px;right:34px;
+ height:102px;border:0;border-radius:100px;background:#fff;color:#000;
+ font-size:31px;font-weight:800;
+}
+
+/* QR scanner */
+.scanner{
+ position:absolute;inset:0;z-index:50;background:#100203;display:none;
+}
+.scanner.open{display:block}
+.scanner .close-circle{z-index:2}
+.scanner-tabs{
+ position:absolute;top:276px;left:34px;right:34px;height:103px;
+ border-radius:80px;background:#453e40;padding:8px;display:flex;
+}
+.scanner-tab{
+ flex:1;border:0;border-radius:70px;background:transparent;
+ color:#c5c0c1;font-size:30px;font-weight:700;
+}
+.scanner-tab.active{background:#000;color:#fff}
+.scanner-title{
+ position:absolute;top:485px;left:0;right:0;
+ text-align:center;font-size:52px;font-weight:900;letter-spacing:-2px;
+}
+.scanner-window{
+ position:absolute;top:584px;left:34px;right:34px;height:762px;
+ border-radius:56px;overflow:hidden;border:3px solid #480e15;
+ background:
+ radial-gradient(ellipse at 45% 40%,#c43b43 0%,#971a29 36%,#510913 75%,#27030a 100%);
+}
+.scanner-window:before{
+ content:"";position:absolute;inset:-20%;
+ background:linear-gradient(120deg,transparent 22%,#ff55551c 40%,transparent 58%);
+ transform:rotate(-15deg);
+}
+.scan-frame{position:absolute;inset:125px;pointer-events:none}
+.scan-corner{position:absolute;width:112px;height:112px;border:10px solid #000}
+.scan-corner.tl{top:0;left:0;border-right:0;border-bottom:0;border-radius:55px 0 0 0}
+.scan-corner.tr{top:0;right:0;border-left:0;border-bottom:0;border-radius:0 55px 0 0}
+.scan-corner.bl{bottom:0;left:0;border-right:0;border-top:0;border-radius:0 0 0 55px}
+.scan-corner.br{bottom:0;right:0;border-left:0;border-top:0;border-radius:0 0 55px 0}
+.scanner-bottom{
+ position:absolute;bottom:100px;left:0;right:0;
+ display:flex;justify-content:center;gap:48px;
+}
+.scanner-tool{
+ width:105px;height:105px;border:0;border-radius:50%;
+ background:#403a3b;display:grid;place-items:center;
+}
+.scanner-tool svg{width:46px;height:46px}
+.scanner.get-paid .scanner-window{background:#111}
+.get-paid-content{
+ display:none;position:absolute;inset:0;
+ align-items:center;justify-content:center;flex-direction:column;
+ gap:35px;text-align:center;font-size:34px;
+}
+.scanner.get-paid .get-paid-content{display:flex}
+.scanner.get-paid .scan-frame{display:none}
+.demo-qr{
+ width:310px;height:310px;background:white;padding:20px;
+ display:grid;grid-template-columns:repeat(7,1fr);gap:5px;
+}
+.demo-qr i{background:#000}
+.demo-qr i:nth-child(3n){background:white}
+
+/* Generic panels */
+.modal{
+ position:absolute;inset:0;z-index:70;background:#000b;
+ display:none;align-items:flex-end;
+}
+.modal.open{display:flex}
+.modal-sheet{
+ width:100%;background:#242424;border-radius:45px 45px 0 0;
+ padding:45px 40px 80px;font-size:30px;
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center}
+.modal-head h2{margin:0;font-size:42px}
+.modal-close{width:65px;height:65px;border:0;border-radius:50%;background:#444;font-size:43px}
+.modal-sheet p{color:#bbb;line-height:1.4}
+.modal-input{
+ width:100%;height:80px;border:2px solid #555;border-radius:20px;
+ background:#171717;color:white;padding:0 20px;font-size:30px;margin-top:20px;
+}
+.modal-action{width:100%;height:90px;border:0;border-radius:50px;background:#fff;color:#000;font-size:30px;font-weight:800;margin-top:25px}
+</style>
+
+<style id="requested-motion-styles">
+/* Additional scroll-only account content: no changes to the initial viewport. */
+#accountsContent .preference-card{height:auto;min-height:265px;display:block;padding:30px 35px 34px}
+#accountsContent .preference-row{display:flex;gap:26px;align-items:center;min-height:142px;cursor:pointer}
+#accountsContent .preference-row .cart-icon{width:104px;height:104px}
+#accountsContent .preference-row .preference-text{padding:0}
+#accountsContent .preference-row .preference-text small{font-size:27px}
+#accountsContent .preference-row + .preference-row{margin-top:5px}
+#accountsContent .account-card{margin-top:25px}
+/* All original page and tab contents use the same gentle transition. */
+@keyframes motionTab{from{opacity:0;transform:translate3d(28px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes motionMain{from{opacity:.65;transform:translate3d(35px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes motionSheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes motionSheetDown{from{transform:translateY(0)}to{transform:translateY(100%)}}
+@keyframes motionKeypadIn{from{opacity:0;transform:translateX(110px)}to{opacity:1;transform:translateX(0)}}
+@keyframes motionSpin{to{transform:rotate(360deg)}}
+@keyframes motionFade{from{opacity:0}to{opacity:1}}
+.page.active{animation:motionMain .38s cubic-bezier(.22,1,.36,1) both}
+.motion-enter{animation:motionTab .42s cubic-bezier(.22,1,.36,1) both!important}
+.scanner.open{animation:motionMain .38s cubic-bezier(.22,1,.36,1)}
+.scanner .get-paid-content,.scanner .scan-frame{animation:motionFade .3s ease}
+.modal.open .modal-sheet{animation:motionSheetUp .38s cubic-bezier(.22,1,.36,1)}
+.money-screen{display:block!important;visibility:hidden;pointer-events:none;transform:translateY(100%)}
+.money-screen.open{visibility:visible;pointer-events:auto;animation:motionSheetUp .5s cubic-bezier(.22,1,.36,1) both;transform:translateY(0)}
+.money-screen.leaving{visibility:visible;pointer-events:none;animation:motionSheetDown .35s cubic-bezier(.4,0,1,1) both}
+.money-screen .money-display,.money-screen .money-sek,.money-screen .money-presets,.money-screen .money-keypad,.money-screen .money-next{visibility:hidden}
+.money-screen.ready .money-display,.money-screen.ready .money-sek,.money-screen.ready .money-presets,.money-screen.ready .money-keypad,.money-screen.ready .money-next{visibility:visible;animation:motionKeypadIn .52s cubic-bezier(.22,1,.36,1) both}
+.money-screen.ready .money-sek{animation-delay:.04s}.money-screen.ready .money-presets{animation-delay:.08s}.money-screen.ready .money-keypad{animation-delay:.12s}.money-screen.ready .money-next{animation-delay:.16s}
+.money-loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;pointer-events:none}
+.money-screen.loading .money-loading{display:flex}
+.money-spinner{width:108px;height:108px;border:9px solid #333;border-top-color:#5bc9fa;border-right-color:#5bc9fa;border-radius:50%;animation:motionSpin .8s linear infinite}
+@media(prefers-reduced-motion:reduce){.page.active,.motion-enter,.scanner.open,.modal.open .modal-sheet,.money-screen.open,.money-screen.leaving,.money-screen.ready .money-display,.money-screen.ready .money-sek,.money-screen.ready .money-presets,.money-screen.ready .money-keypad,.money-screen.ready .money-next{animation-duration:.01ms!important}}
+</style>
+<style id="custom-baby-branding">
+.balance-card{position:relative}
+.balance-card-header{position:absolute;top:35px;left:44px;right:38px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;color:#071820;font-size:29px;font-weight:750;letter-spacing:-.3px}
+.balance-card-header img{width:105px;height:105px;object-fit:contain;object-position:right top}
+.mission-baby-avatar{overflow:hidden;background:transparent!important}
+.mission-baby-avatar img{width:100%;height:100%;object-fit:contain}
+.fix-tile-logo{width:78%;height:70%;object-fit:contain;display:block;transform:none}
+.mission-business-art .fix-tile-logo{width:100px;height:90px}
+</style>
+</head>
+<body>
+
+<div class="phone-stage">
+<div class="phone-space" id="phoneSpace">
+<div class="iphone" id="iphone">
+<div class="screen">
+
+<div class="app" id="app">
+
+<!-- ME -->
+<div class="page active" id="mePage">
+ <div class="top-heading">
+  <h1>YOUR NAME</h1>
+  <button class="bell" onclick="openModal('Notifications')">
+   <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+    <path d="M10 21h4"/>
+   </svg>
+  </button>
+ </div>
+
+ <div class="tabs account-tabs" id="meTabs">
+  <button class="tab active" onclick="switchMe('Accounts')">Accounts</button>
+  <button class="tab" onclick="switchMe('Activity')">Activity</button>
+  <button class="tab" onclick="switchMe('Subscriptions')">Subscriptions</button>
+  <button class="tab" onclick="switchMe('Settings')">Settings</button>
+ </div>
+
+ <div class="section" id="accountsContent">
+  <div class="account-card">
+   <div class="balance-card"><div class="balance-card-header"><span>PayPal balance</span><img src="babylogocard.png" alt="baby card logo" onerror="this.style.visibility='hidden'"></div><div class="balance" id="balance">0,00 kr</div></div>
+   <button class="add-money" onclick="openMoney()">
+    <span class="money-icon">
+     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <rect x="2" y="5" width="20" height="14"/>
+      <rect x="8" y="9" width="8" height="6" rx="4"/>
+     </svg>
+    </span>
+    Add Money
+   </button>
+  </div>
+
+  <div class="section-heading">
+   <h2>Linked banks and cards</h2>
+   <button class="plus" onclick="openWallet()">+</button>
+  </div>
+  <div class="linked-box">Add banks and cards to check out securely with.</div>
+
+  <h2 class="preferences-title">Payment Preferences</h2>
+  <div class="preference-card" onclick="openModal('Online payments')">
+   <div class="cart-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+     <path d="M2 4h3l3 12h11l3-9H6"/>
+     <circle cx="9" cy="20" r="1.5"/><circle cx="19" cy="20" r="1.5"/>
+    </svg>
+   </div>
+   <div class="preference-text">Online payments<small>Choose your preferred method</small></div>
+  </div>
+ </div>
+
+ <div id="activityContent" class="hidden">
+  <div class="empty-activity">
+   <div class="receipt-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7">
+     <path d="M5 2h14v20l-7-3-7 3z"/>
+     <path d="M9 8h6M9 12h6"/>
+    </svg>
+   </div>
+   <h2>No activity here yet</h2>
+   <p>Once you make a demo transaction with baby, it’ll appear here.</p>
+  </div>
+ </div>
+
+ <div id="subscriptionsContent" class="hidden">
+  <div class="subscriptions-content">
+   <div class="subscription-art">
+    <div class="art-tile">↗</div>
+    <div class="art-tile">A</div>
+    <div class="art-tile">◉</div>
+    <div class="art-tile">◆</div>
+    <div class="art-tile">HELLO<br>FRESH</div>
+    <div class="art-tile">Disney+</div>
+    <div class="art-tile">N</div>
+    <div class="art-tile">◉</div>
+   </div>
+   <h2>Stay on top of your subscriptions</h2>
+  </div>
+ </div>
+
+ <div id="settingsContent" class="section hidden">
+  <button class="send-option" onclick="openModal('Personal information')">Personal information</button>
+  <button class="send-option" onclick="openModal('Security')">Security</button>
+  <button class="send-option" onclick="openModal('Notifications')">Notifications</button>
+  <button class="send-option" onclick="openModal('Payment preferences')">Payment preferences</button>
+ </div>
+</div>
+
+<!-- SEND -->
+<div class="page" id="sendPage">
+ <div class="top-heading">
+  <h1>Send</h1>
+  <button class="bell" onclick="openModal('Notifications')">
+   <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+    <path d="M10 21h4"/>
+   </svg>
+  </button>
+ </div>
+
+ <div class="tabs send-tabs" id="sendTabs">
+  <button class="tab active" onclick="switchSend('Transfer')">Transfer</button>
+  <button class="tab" onclick="switchSend('Contacts')">Contacts</button>
+  <button class="tab" onclick="switchSend('Split')">Split</button>
+  <button class="tab" onclick="switchSend('More')">More</button>
+ </div>
+
+ <button class="top-qr" onclick="openScanner()">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+   <path d="M2 2h9v9H2zm2 2v5h5V4zm9-2h9v9h-9zm2 2v5h5v-5zM2 13h9v9H2zm2 2v5h5v-5z"/>
+   <path d="M13 13h3v3h-3zm5 0h4v2h-2v2h-2zm-5 5h2v4h-2zm4 0h2v2h3v2h-5zm4-2h1v3h-1z"/>
+  </svg>
+ </button>
+
+ <!-- Transfer -->
+ <div id="transferContent">
+  <div class="transfer-amount">
+   <span id="transferDisplay">0</span><small>kr</small>
+  </div>
+  <button class="currency-select" onclick="openModal('Currency')">
+   <span class="flag"></span>SEK
+   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="m4 9 8 8 8-8"/></svg>
+  </button>
+  <div class="transfer-controls">
+   <div class="number-grid" id="transferKeys"></div>
+   <div class="transfer-actions">
+    <button class="white-button" onclick="transferAction('Request')">Request</button>
+    <button class="white-button" onclick="transferAction('Send')">Send</button>
+   </div>
+  </div>
+ </div>
+
+ <!-- Contacts -->
+ <div id="contactsContent" class="section full hidden">
+  <div class="contact-search">
+   <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+    <circle cx="10" cy="10" r="7"/><path d="m15 15 7 7"/>
+   </svg>
+   <input placeholder="Name, phone, email, @username">
+  </div>
+  <div class="contacts-intro">
+   <div class="blue-coin">$</div>
+   <h2>Simple ways to move money</h2>
+  </div>
+  <button class="send-option contact-card" onclick="openScanner()">
+   <span class="send-option-icon">
+    <svg viewBox="0 0 24 24" fill="white">
+     <path d="M2 2h9v9H2zm2 2v5h5V4zm9-2h9v9h-9zm2 2v5h5v-5zM2 13h9v9H2zm2 2v5h5v-5z"/>
+     <path d="M13 13h3v3h-3zm5 0h4v2h-2v2h-2zm-5 5h2v4h-2zm4 0h2v2h3v2h-5zm4-2h1v3h-1z"/>
+    </svg>
+   </span>
+   <span>Scan with QR code<div class="sub">No details to enter, just pay and go</div></span>
+  </button>
+ </div>
+
+ <!-- Split -->
+ <div id="splitContent" class="hidden">
+  <div class="section split-scroll">
+   <div class="split-illustration">
+    <div class="split-ring"></div>
+    <div class="split-person p1">👨🏻</div>
+    <div class="split-person p2">👩🏻</div>
+    <div class="split-person p3">🧑🏻</div>
+    <div class="split-person p4">👨🏽</div>
+    <div class="split-receipt">
+     TOTAL: $25.50<hr>
+     1 × BANK FEE<hr>
+     1 × SERVICE<hr>
+     TOTAL: $25.50
+    </div>
+   </div>
+   <h2 class="split-title"><span>Split up</span> group expenses with ease</h2>
+   <p class="split-description">Ask people to pay their share for dinner, trips, rent, whatever -- it doesn't need to be awkward.</p>
+   <div class="split-info">
+    <div class="split-info-row">
+     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <circle cx="8" cy="8" r="4"/><circle cx="16" cy="8" r="4"/>
+      <path d="M2 22v-4a6 6 0 0 1 12 0v4M12 22v-4a6 6 0 0 1 10 0v4"/>
+     </svg>
+     Decide who owes what, or split it evenly.
+    </div>
+    <div class="split-info-row">
+     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <circle cx="12" cy="12" r="9"/><path d="M12 3v9l-7 6M12 12l7 6"/>
+     </svg>
+     We'll send out requests to help collect it.
+    </div>
+   </div>
+  </div>
+  <button class="split-start" onclick="openModal('Start a Split')">Start a Split</button>
+ </div>
+
+ <!-- More -->
+ <div id="moreContent" class="section full hidden" style="top:510px">
+  <button class="send-option" onclick="openModal('Send to a bank account')">
+   <span class="send-option-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+     <path d="M2 9 12 3l10 6M4 9h16M5 10v10M10 10v10M15 10v10M20 10v10M2 21h20"/>
+    </svg>
+   </span>
+   Send to a bank account
+  </button>
+  <button class="send-option" onclick="openModal('Send to a mobile wallet')">
+   <span class="send-option-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+     <path d="M3 7h18v13H3zM3 7V5h18M3 11h18M16 16h3"/>
+    </svg>
+   </span>
+   Send to a mobile wallet
+  </button>
+  <button class="send-option" onclick="openModal('Send cash for pickup')">
+   <span class="send-option-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+     <path d="M3 6h18v12H3z"/><circle cx="12" cy="12" r="3"/>
+    </svg>
+   </span>
+   Send cash for pickup
+  </button>
+  <button class="send-option" onclick="openModal('Send to a debit card')">
+   <span class="send-option-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+     <path d="M3 5h18v14H3zM3 10h18M14 15h5"/>
+    </svg>
+   </span>
+   Send to a debit card
+  </button>
+ </div>
+</div>
+
+<!-- Persistent navigation -->
+<div class="bottom-nav" id="bottomNav">
+ <div class="nav-pill">
+  <button class="nav-item active" id="meNav" onclick="switchMain('Me')">
+   <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+    <circle cx="12" cy="6" r="4"/><path d="M5 22v-3a7 7 0 0 1 14 0v3z"/>
+   </svg>
+   Me
+  </button>
+  <button class="nav-item" id="sendNav" onclick="switchMain('Send')">
+   <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+    <path d="M8 21V3M3 8l5-5 5 5M16 3v18m-5-5 5 5 5-5"/>
+   </svg>
+   Send
+  </button>
+ </div>
+ <button class="nav-qr" onclick="openScanner()">
+  <svg viewBox="0 0 24 24" fill="white">
+   <path d="M2 2h9v9H2zm2 2v5h5V4zm9-2h9v9h-9zm2 2v5h5v-5zM2 13h9v9H2zm2 2v5h5v-5z"/>
+   <path d="M13 13h3v3h-3zm5 0h4v2h-2v2h-2zm-5 5h2v4h-2zm4 0h2v2h3v2h-5zm4-2h1v3h-1z"/>
+  </svg>
+ </button>
+</div>
+
+<!-- Add Money -->
+<div class="money-screen" id="moneyScreen">
+ <button class="close-circle" onclick="closeMoney()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+   <path d="M5 5 19 19M19 5 5 19"/>
+  </svg>
+ </button>
+ <div class="money-display"><span id="moneyDisplay">10</span><small>kr</small></div>
+ <div class="money-sek"><span class="flag"></span>SEK</div>
+ <div class="money-presets">
+  <button class="preset selected" data-amount="10" onclick="selectPreset(10)">10 kr</button>
+  <button class="preset" data-amount="25" onclick="selectPreset(25)">25 kr</button>
+  <button class="preset" data-amount="50" onclick="selectPreset(50)">50 kr</button>
+  <button class="preset" data-amount="100" onclick="selectPreset(100)">100 kr</button>
+ </div>
+ <div class="money-keypad"><div class="number-grid" id="moneyKeys"></div></div>
+ <button class="money-next" onclick="addMoney()">Next</button>
+</div>
+
+<!-- QR scanner -->
+<div class="scanner" id="scanner">
+ <button class="close-circle" onclick="closeScanner()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+   <path d="M5 5 19 19M19 5 5 19"/>
+  </svg>
+ </button>
+ <div class="scanner-tabs">
+  <button class="scanner-tab active" onclick="switchScanner('Scan to Pay')">Scan to Pay</button>
+  <button class="scanner-tab" onclick="switchScanner('Get Paid')">Get Paid</button>
+ </div>
+ <div class="scanner-title" id="scannerTitle">Center code in the box</div>
+ <div class="scanner-window">
+  <div class="scan-frame">
+   <div class="scan-corner tl"></div>
+   <div class="scan-corner tr"></div>
+   <div class="scan-corner bl"></div>
+   <div class="scan-corner br"></div>
+  </div>
+  <div class="get-paid-content">
+   <div class="demo-qr" id="demoQR"></div>
+   <span>QR code</span>
+  </div>
+ </div>
+ <div class="scanner-bottom">
+  <button class="scanner-tool" onclick="toggleFlash()" aria-label="Flashlight">
+   <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+    <path d="M5 3h14v6l-5 5v7h-4v-7L5 9z"/>
+   </svg>
+  </button>
+  <button class="scanner-tool" onclick="openModal('Choose image')" aria-label="Choose image">
+   <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+    <rect x="3" y="3" width="18" height="18"/>
+    <circle cx="9" cy="9" r="2"/>
+    <path d="m3 19 6-6 4 4 3-3 5 5"/>
+   </svg>
+  </button>
+ </div>
+</div>
+
+<!-- Generic dialog -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="modal-sheet">
+  <div class="modal-head">
+   <h2 id="modalTitle">Details</h2>
+   <button class="modal-close" onclick="closeModal()">×</button>
+  </div>
+  <div id="modalBody"></div>
+ </div>
+</div>
+
+</div><!-- app -->
+<div class="notch"></div>
+<div class="home-indicator"></div>
+</div><!-- screen -->
+</div><!-- iphone -->
+</div><!-- phone-space -->
+</div><!-- stage -->
+
+<script>
+const $=id=>document.getElementById(id);
+let currentMain='Me';
+let currentMe='Accounts';
+let currentSend='Transfer';
+let balance=0;
+let moneyValue='10';
+let moneyFresh=true;
+let transferValue='0';
+let flashOn=false;
+
+function resizePhone(){
+ const scale=Math.max(.1,Math.min(
+  (innerWidth-40)/420,
+  (innerHeight-40)/874,
+  1
+ ));
+ $('iphone').style.transform=`scale(${scale})`;
+ $('iphone').style.transformOrigin='top left';
+ $('phoneSpace').style.width=420*scale+'px';
+ $('phoneSpace').style.height=874*scale+'px';
+}
+addEventListener('resize',resizePhone);
+resizePhone();
+
+function setTabs(container,name){
+ [...$(container).querySelectorAll('.tab')].forEach(btn=>{
+  btn.classList.toggle('active',btn.textContent.trim()===name);
+ });
+}
+
+function switchMain(name){
+ currentMain=name;
+ $('mePage').classList.toggle('active',name==='Me');
+ $('sendPage').classList.toggle('active',name==='Send');
+ $('meNav').classList.toggle('active',name==='Me');
+ $('sendNav').classList.toggle('active',name==='Send');
+}
+
+function switchMe(name){
+ currentMe=name;
+ setTabs('meTabs',name);
+ ['Accounts','Activity','Subscriptions','Settings'].forEach(tab=>{
+  $(tab.toLowerCase()+'Content').classList.toggle('hidden',tab!==name);
+ });
+}
+
+function switchSend(name){
+ currentSend=name;
+ setTabs('sendTabs',name);
+ ['Transfer','Contacts','Split','More'].forEach(tab=>{
+  $(tab.toLowerCase()+'Content').classList.toggle('hidden',tab!==name);
+ });
+}
+
+function formatMoney(value){
+ return value.toLocaleString('sv-SE',{
+  minimumFractionDigits:2,
+  maximumFractionDigits:2
+ })+' kr';
+}
+
+const deleteSVG=`
+<svg viewBox="0 0 24 24" fill="white">
+ <path d="M9 3H22V21H9L1 12Z"/>
+ <path d="m12 9 6 6m0-6-6 6" stroke="#1b1b1b" stroke-width="2.5"/>
+</svg>`;
+
+function buildKeys(target,handler){
+ const keys=['1','2','3','4','5','6','7','8','9',',','0','⌫'];
+ $(target).innerHTML=keys.map(key=>
+  `<button class="number-key" data-key="${key}">${key==='⌫'?deleteSVG:key}</button>`
+ ).join('');
+ $(target).querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click',()=>handler(btn.dataset.key));
+ });
+}
+buildKeys('moneyKeys',pressMoney);
+buildKeys('transferKeys',pressTransfer);
+
+function editNumber(value,key,fresh=false){
+ if(key==='⌫')return fresh?'':value.slice(0,-1);
+ if(key===',')return fresh?'0,':value.includes(',')?value:(value||'0')+',';
+ if(value.replace(/\D/g,'').length>=12)return value;
+ if(value.includes(',')&&value.split(',')[1].length>=2)return value;
+ if(fresh)return key;
+ if(value==='0')return key==='0'?'0':key;
+ return value+key;
+}
+
+function updateMoney(){
+ $('moneyDisplay').textContent=moneyValue||'0';
+ const size=moneyValue.length>9?80:moneyValue.length>6?110:moneyValue.length>4?140:170;
+ $('moneyDisplay').parentElement.style.fontSize=size+'px';
+ const n=Number(moneyValue.replace(',','.'));
+ document.querySelectorAll('.preset').forEach(btn=>{
+  btn.classList.toggle('selected',
+   Number(btn.dataset.amount)===n&&!moneyValue.endsWith(',')
+  );
+ });
+}
+
+function openMoney(){
+ moneyValue='10';
+ moneyFresh=true;
+ updateMoney();
+ $('moneyScreen').classList.add('open');
+}
+function closeMoney(){$('moneyScreen').classList.remove('open')}
+function selectPreset(value){
+ moneyValue=String(value);
+ moneyFresh=true;
+ updateMoney();
+}
+function pressMoney(key){
+ moneyValue=editNumber(moneyValue,key,moneyFresh);
+ moneyFresh=false;
+ updateMoney();
+}
+function addMoney(){
+ const amount=Number(moneyValue.replace(',','.'));
+ if(!Number.isFinite(amount)||amount<=0)return;
+ balance=Math.round((balance+amount)*100)/100;
+ $('balance').textContent=formatMoney(balance);
+ closeMoney();
+}
+
+function pressTransfer(key){
+ transferValue=editNumber(transferValue,key);
+ $('transferDisplay').textContent=transferValue||'0';
+ const size=transferValue.length>9?85:transferValue.length>6?110:transferValue.length>4?135:166;
+ $('transferDisplay').parentElement.style.fontSize=size+'px';
+}
+function transferAction(type){
+ const amount=Number(transferValue.replace(',','.'));
+ if(!Number.isFinite(amount)||amount<=0)return;
+ openModal(type+' money');
+}
+
+function openScanner(){
+ $('scanner').classList.add('open');
+ switchScanner('Scan to Pay');
+}
+function closeScanner(){$('scanner').classList.remove('open')}
+function switchScanner(name){
+ document.querySelectorAll('.scanner-tab').forEach(btn=>{
+  btn.classList.toggle('active',btn.textContent.trim()===name);
+ });
+ $('scanner').classList.toggle('get-paid',name==='Get Paid');
+ $('scannerTitle').textContent=name==='Get Paid'?'Show your code':'Center code in the box';
+}
+function toggleFlash(){
+ flashOn=!flashOn;
+ const windowEl=document.querySelector('.scanner-window');
+ windowEl.style.filter=flashOn?'brightness(1.5)':'none';
+}
+
+/* Decorative QR pattern, not a payment QR */
+const qr=$('demoQR');
+for(let i=0;i<49;i++){
+ const cell=document.createElement('i');
+ if((i*13+i*i)%7===0)cell.style.background='#fff';
+ qr.appendChild(cell);
+}
+
+function openModal(title){
+ $('modalTitle').textContent=title;
+ $('modalBody').innerHTML=`
+  <p>This screen is part of the interactive interface preview.
+  No real payment or account action will be performed.</p>
+  <button class="modal-action" onclick="closeModal()">Close</button>
+ `;
+ $('modal').classList.add('open');
+}
+function closeModal(){$('modal').classList.remove('open')}
+
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape'){
+  closeModal();
+  closeMoney();
+  closeScanner();
+  return;
+ }
+ if($('moneyScreen').classList.contains('open')){
+  if(/^\d$/.test(event.key))pressMoney(event.key);
+  else if(event.key==='Backspace')pressMoney('⌫');
+  else if(event.key===','||event.key==='.')pressMoney(',');
+  else if(event.key==='Enter')addMoney();
+  return;
+ }
+ if(currentMain==='Send'&&currentSend==='Transfer'&&
+    !$('scanner').classList.contains('open')&&
+    !$('modal').classList.contains('open')){
+  if(/^\d$/.test(event.key))pressTransfer(event.key);
+  else if(event.key==='Backspace')pressTransfer('⌫');
+  else if(event.key===','||event.key==='.')pressTransfer(',');
+ }
+});
+</script>
+<!-- ORIGINAL DESIGN PRESERVED: settings, transitions, and rear camera additions -->
+<style>
+/* Additional styles only; all original styling remains unchanged. */
+.page.active{animation:oldPageIn .28s cubic-bezier(.2,.75,.2,1)}
+@keyframes oldPageIn{from{opacity:.5;transform:translateX(15px)}to{opacity:1;transform:translateX(0)}}
+.tab{transition:background .24s ease,color .24s ease,transform .24s ease}
+.tab:active{transform:scale(.94)}
+.tab-animated{animation:oldTabIn .32s cubic-bezier(.2,.75,.2,1) both}
+@keyframes oldTabIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+#settingsContent{top:374px;bottom:185px}
+.settings-head{display:flex;align-items:center;justify-content:space-between;margin:25px 4px 43px}
+.settings-head h2,.settings-section h2{font-size:43px;letter-spacing:-1px;margin:0;font-weight:800}
+.settings-switch-account{border:0;background:#383838;border-radius:60px;padding:20px 25px;font-size:27px;font-weight:700}
+.settings-section{margin-bottom:67px}
+.settings-section h2{margin:0 4px 31px}
+.settings-panel{background:linear-gradient(135deg,#262626,#1b1b1b 52%,#292929);border-radius:53px;overflow:hidden;padding:0 35px}
+.settings-row{display:flex;align-items:center;gap:16px;min-height:135px;padding:30px 0;border:0;border-bottom:2px solid #4a4a4a;width:100%;background:transparent;color:#fff;text-align:left}
+.settings-row:last-child{border-bottom:0}
+.settings-row-text{flex:1;min-width:0;font-size:31px;line-height:1.35;overflow-wrap:anywhere}
+.settings-row-text small{display:block;font-size:29px;color:#bcbcbc;margin-top:9px;line-height:1.4}
+.settings-arrow{font-size:53px;font-weight:300;color:#bcbcbc;line-height:1}
+.settings-subheading{font-size:33px;font-weight:800;padding:46px 0 10px}
+.settings-switch{width:123px;height:68px;flex-shrink:0;border:0;border-radius:50px;background:#555;padding:7px;transition:background .22s}
+.settings-switch.on{background:#fff}
+.settings-switch span{display:block;width:54px;height:54px;border-radius:50%;background:#ddd;transition:transform .22s}
+.settings-switch.on span{background:#000;transform:translateX(55px)}
+.settings-switch.on span:after{content:'✓';display:block;text-align:center;font-size:36px;line-height:54px}
+.settings-footer{text-align:center;padding:22px 0 145px}
+.settings-logout{width:100%;height:106px;background:transparent;border:2px solid #494949;border-radius:70px;font-size:31px;font-weight:800}
+.settings-close{border:0;background:none;font-size:31px;font-weight:800;margin:65px 0 95px}
+.settings-legal{border:0;background:none;color:#5acbfa;font-size:30px;text-decoration:underline;font-weight:800}
+.settings-version{font-size:28px;color:#bcbcbc;margin-top:43px}
+#scannerVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.scanner-window.camera-on{background:#111}
+.scanner-window.camera-on:before{display:none}
+.scanner-window .scan-frame{z-index:3}
+#cameraNotice{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:55px;text-align:center;color:white;font-size:30px;line-height:1.4;background:#0008;pointer-events:none}
+#cameraNotice:empty{display:none}
+.scanner.get-paid #scannerVideo,.scanner.get-paid #cameraNotice{display:none}
+.scanner .get-paid-content{z-index:4}
+.settings-editor-help{font-size:25px;color:#bcbcbc;margin-top:22px}
+.settings-editor-image{width:180px;height:180px;border-radius:50%;object-fit:cover;background:#444;margin-top:20px}
+</style>
+<script>
+/* Upgrade layer: original functions and original HTML remain in place. */
+const demoDefaults={name:'',email:'',phone:'',address:'',username:'',visibility:'Everyone',photo:'',faceId:true,offers:true,push:true,accountSMS:true,marketingSMS:false};
+let demoProfile;
+try{demoProfile={...demoDefaults,...JSON.parse(localStorage.getItem('iphone-original-settings')||'{}')}}catch{demoProfile={...demoDefaults}}
+// One-time cleanup of sample personal information from earlier versions.
+try{
+ if(localStorage.getItem('baby-clean-profile-v2')!=='yes'){
+  for(const k of ['name','email','phone','address','username','location'])demoProfile[k]='';
+  localStorage.setItem('iphone-original-settings',JSON.stringify(demoProfile));
+  localStorage.setItem('baby-clean-profile-v2','yes');
+ }
+}catch(e){}
+function demoSave(){try{localStorage.setItem('iphone-original-settings',JSON.stringify(demoProfile))}catch(e){alert('Unable to save this image. Try a smaller photo.')}}
+function demoEscape(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function demoRow(title,subtitle,handler){return `<button class="settings-row" data-setting-action="${demoEscape(handler)}"><span class="settings-row-text">${demoEscape(title)}${subtitle?`<small>${demoEscape(subtitle)}</small>`:''}</span><span class="settings-arrow">›</span></button>`}
+function demoEditRow(title,key){return demoRow(title,demoProfile[key]||'',`edit:${key}`)}
+function demoSwitchRow(title,subtitle,key){return `<div class="settings-row"><span class="settings-row-text">${demoEscape(title)}${subtitle?`<small>${demoEscape(subtitle)}</small>`:''}</span><button class="settings-switch ${demoProfile[key]?'on':''}" data-setting-action="toggle:${key}" aria-label="Toggle ${demoEscape(title)}"><span></span></button></div>`}
+function demoGroup(title,contents){return `<section class="settings-section"><h2>${demoEscape(title)}</h2><div class="settings-panel">${contents}</div></section>`}
+function renderOriginalSettings(){
+ const h=document.querySelector('#mePage .top-heading h1');if(h)h.textContent=demoProfile.name||'YOUR NAME';
+ $('settingsContent').innerHTML=`
+ <div class="settings-head"><h2>Profile</h2><button class="settings-switch-account" data-setting-action="info:Switch accounts">⇄ Switch accounts</button></div>
+ <section class="settings-section"><div class="settings-panel">
+ ${demoEditRow('Name','name')}
+ ${demoRow('Profile photo','Update your photo so friends and merchants know it’s you','edit:photo')}
+ ${demoEditRow('Email','email')}
+ ${demoEditRow('Phone number','phone')}
+ ${demoEditRow('Address','address')}
+ ${demoRow('baby.me',demoProfile.username||'Create your personal profile.','edit:username')}
+ ${demoRow('Profile visibility',demoProfile.visibility||'Manage who can find your baby profile.','edit:visibility')}
+ </div></section>
+ ${demoGroup('Payment preferences',demoRow('Online payments','Manage your online payment options.','info:Online payments')+demoRow('Linked businesses','See businesses where you linked baby for faster checkout.','info:Linked businesses'))}
+ ${demoGroup('Security and privacy',`<div class="settings-subheading">Manage your account's security</div>`+
+ demoRow('Passkeys','Log in without a password across devices.','info:Passkeys')+
+ demoSwitchRow('Face and Touch ID','Log in faster with your face or fingerprint.','faceId')+
+ demoRow('Password','Create a new password.','info:Password')+
+ demoRow('Blocked contacts','Control who can contact you.','info:Blocked contacts')+
+ `<div class="settings-subheading">Manage your collected &amp; shared data</div>`+
+ demoRow('Connected apps and sites','Manage how connected services use your baby data.','info:Connected apps and sites')+
+ demoSwitchRow('Personalized offers','Control whether your baby offers are relevant.','offers')+
+ demoRow('Download or delete your data','Manage your data collected by baby.','info:Download or delete your data'))}
+ ${demoGroup('Notification preferences',`<div class="settings-subheading">General notifications</div>`+
+ demoSwitchRow('Push notifications','','push')+
+ demoSwitchRow('Account SMS and email','','accountSMS')+
+ demoSwitchRow('Marketing SMS and email','','marketingSMS'))}
+ ${demoGroup('Support',demoRow('Chat with baby Assistant','Get instant help from our AI assistant.','info:Chat with baby Assistant')+
+ demoRow('Message Center','View conversations and updates from baby.','info:Message Center')+
+ demoRow('Help Center','Get help with your account, transactions, and more.','info:Help Center'))}
+ <div class="settings-footer"><button class="settings-logout" data-setting-action="info:Log Out">⇥ Log Out</button><button class="settings-close" data-setting-action="info:Close account">▤ Close account</button><div><button class="settings-legal" data-setting-action="info:Legal">Legal</button></div><div class="settings-version">Version 10.10.0 (677)</div></div>`;
+}
+$('settingsContent').addEventListener('click',e=>{
+ const el=e.target.closest('[data-setting-action]');if(!el)return;
+ const action=el.dataset.settingAction;
+ if(action.startsWith('edit:'))demoOpenEditor(action.slice(5));
+ else if(action.startsWith('toggle:')){const key=action.slice(7);demoProfile[key]=!demoProfile[key];demoSave();renderOriginalSettings()}
+ else if(action.startsWith('info:'))openModal(action.slice(5));
+});
+let demoEditing='';
+function demoOpenEditor(key){
+ demoEditing=key;
+ const labels={name:'Name',email:'Email',phone:'Phone number',address:'Address',username:'baby.me',visibility:'Profile visibility',photo:'Profile photo'};
+ $('modalTitle').textContent=labels[key]||key;
+ if(key==='photo'){
+  $('modalBody').innerHTML=`<p>Choose a profile photo.</p><img class="settings-editor-image" id="demoPhotoPreview" alt="Profile photo"><input class="modal-input" type="file" accept="image/*" id="demoPhotoInput"><button class="modal-action" onclick="demoSaveEdit()">Save changes</button>`;
+  $('demoPhotoPreview').src=demoProfile.photo||'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect width="100" height="100" fill="%23444"/%3E%3C/svg%3E';
+  $('demoPhotoInput').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('demoPhotoPreview').src=r.result};r.readAsDataURL(f)});
+ }else{
+  $('modalBody').innerHTML=`<p>Update ${demoEscape(labels[key]||key).toLowerCase()} for this local preview.</p><input class="modal-input" id="demoEditInput" type="${key==='email'?'email':key==='phone'?'tel':'text'}" placeholder="${demoEscape(labels[key]||key)}"><p class="settings-editor-help">Changes are stored on this device only.</p><button class="modal-action" onclick="demoSaveEdit()">Save changes</button>`;
+  $('demoEditInput').value=demoProfile[key]||'';
+ }
+ $('modal').classList.add('open');
+}
+function demoSaveEdit(){
+ if(demoEditing==='photo'){
+  const src=$('demoPhotoPreview').src;if(src.startsWith('data:image/')&&!src.startsWith('data:image/svg'))demoProfile.photo=src;
+ }else{
+  const value=$('demoEditInput').value.trim();
+  if(demoEditing==='email'&&value&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){alert('Enter a valid email address.');return}
+  demoProfile[demoEditing]=value;
+ }
+ demoSave();renderOriginalSettings();closeModal();
+}
+renderOriginalSettings();
+/* Wrap, rather than replace, the existing tab/navigation logic. */
+const oldSwitchMe=switchMe;
+switchMe=function(name){oldSwitchMe(name);const el=$(name.toLowerCase()+'Content');if(el){el.classList.remove('tab-animated');void el.offsetWidth;el.classList.add('tab-animated')}};
+const oldSwitchSend=switchSend;
+switchSend=function(name){oldSwitchSend(name);const el=$(name.toLowerCase()+'Content');if(el){el.classList.remove('tab-animated');void el.offsetWidth;el.classList.add('tab-animated')}};
+/* Keep the scanner's original red frame, controls, and Get Paid view. */
+const scannerWindow=document.querySelector('.scanner-window');
+const cameraVideo=document.createElement('video');cameraVideo.id='scannerVideo';cameraVideo.autoplay=true;cameraVideo.muted=true;cameraVideo.playsInline=true;cameraVideo.setAttribute('playsinline','');
+scannerWindow.prepend(cameraVideo);
+const cameraNotice=document.createElement('div');cameraNotice.id='cameraNotice';scannerWindow.appendChild(cameraNotice);
+let rearStream=null,scanSession=0,qrDetector=null,torchEnabled=false;
+async function startRearCamera(){
+ const session=++scanSession;stopRearCamera(false);
+ if(!navigator.mediaDevices?.getUserMedia){cameraNotice.textContent='Camera access requires HTTPS or localhost.';return}
+ cameraNotice.textContent='Starting rear camera…';
+ try{
+  const stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
+  if(session!==scanSession||!$('scanner').classList.contains('open')||$('scanner').classList.contains('get-paid')){stream.getTracks().forEach(t=>t.stop());return}
+  rearStream=stream;cameraVideo.srcObject=stream;await cameraVideo.play();cameraNotice.textContent='';scannerWindow.classList.add('camera-on');
+  if('BarcodeDetector' in window){try{qrDetector=new BarcodeDetector({formats:['qr_code']});scanQR(session)}catch{}}
+ }catch(e){cameraNotice.textContent='Camera unavailable. Allow camera permission in your browser and try again.'}
+}
+function stopRearCamera(invalidate=true){if(invalidate)scanSession++;if(rearStream){rearStream.getTracks().forEach(t=>t.stop());rearStream=null}cameraVideo.pause();cameraVideo.srcObject=null;scannerWindow.classList.remove('camera-on');torchEnabled=false}
+async function scanQR(session){
+ while(session===scanSession&&rearStream&&$('scanner').classList.contains('open')&&!$('scanner').classList.contains('get-paid')){
+  try{const codes=await qrDetector.detect(cameraVideo);if(codes.length){const value=codes[0].rawValue;stopRearCamera();cameraNotice.textContent='QR detected';openModal('QR code detected');$('modalBody').innerHTML=`<p style="overflow-wrap:anywhere">${demoEscape(value)}</p><button class="modal-action" onclick="closeModal()">Close</button>`;break}}catch{}
+  await new Promise(resolve=>setTimeout(resolve,300));
+ }
+}
+const oldOpenScanner=openScanner;
+openScanner=function(){oldOpenScanner()};
+const oldCloseScanner=closeScanner;
+closeScanner=function(){stopRearCamera();oldCloseScanner()};
+const oldSwitchScanner=switchScanner;
+switchScanner=function(name){oldSwitchScanner(name);if(name==='Get Paid'){stopRearCamera();cameraNotice.textContent=''}else if($('scanner').classList.contains('open'))startRearCamera()};
+/* Use the existing flashlight button to control the real camera torch when supported. */
+toggleFlash=async function(){
+ const track=rearStream?.getVideoTracks()[0];if(!track)return;
+ try{if(!track.getCapabilities?.().torch)return;torchEnabled=!torchEnabled;await track.applyConstraints({advanced:[{torch:torchEnabled}]})}catch{}
+};
+/* The existing image button now opens the file picker and scans a QR image when supported. */
+const imageInput=document.createElement('input');imageInput.type='file';imageInput.accept='image/*';imageInput.hidden=true;document.body.appendChild(imageInput);
+const imageButton=document.querySelector('.scanner-bottom .scanner-tool:nth-child(2)');
+imageButton.onclick=()=>imageInput.click();
+imageInput.addEventListener('change',async()=>{
+ const file=imageInput.files?.[0];if(!file)return;
+ if(!('BarcodeDetector' in window)){openModal('QR image scanning');$('modalBody').innerHTML='<p>Image QR detection is not supported in this browser.</p>';return}
+ try{const bitmap=await createImageBitmap(file);const detector=new BarcodeDetector({formats:['qr_code']});const codes=await detector.detect(bitmap);bitmap.close();openModal('QR image');$('modalBody').innerHTML=`<p style="overflow-wrap:anywhere">${codes.length?demoEscape(codes[0].rawValue):'No QR code found in this image.'}</p>`}catch{openModal('Unable to read QR image')}
+ imageInput.value='';
+});
+</script>
+
+
+<script id="requested-motion-logic">
+(function(){
+ const byId=id=>document.getElementById(id);
+ // Extend the original preference card rather than altering the initial account card.
+ const preference=byId('accountsContent').querySelector('.preference-card');
+ if(preference){
+   const firstIcon=preference.querySelector('.cart-icon');
+   const firstText=preference.querySelector('.preference-text');
+   const row=document.createElement('div');row.className='preference-row';
+   row.append(firstIcon,firstText);
+   preference.replaceChildren(row);
+   const qrIcon='<svg viewBox="0 0 24 24" fill="white"><path d="M2 2h9v9H2zm2 2v5h5V4zm9-2h9v9h-9zm2 2v5h5v-5zM2 13h9v9H2zm2 2v5h5v-5zM13 13h3v3h-3zm5 0h4v2h-2v2h-2zm-5 5h2v4h-2zm4 0h2v2h3v2h-5z"/></svg>';
+   const businessIcon='<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="3" y="7" width="18" height="14"/><path d="M9 7V4h6v3M3 13h18M10 12v3h4v-3"/></svg>';
+   function addRow(title,subtitle,icon){const r=document.createElement('div');r.className='preference-row';r.innerHTML='<div class="cart-icon">'+icon+'</div><div class="preference-text">'+title+(subtitle?'<small>'+subtitle+'</small>':'')+'</div>';r.addEventListener('click',()=>openModal(title));preference.append(r)}
+   addRow('QR code payments','Select a payment method',qrIcon);
+   addRow('Linked businesses','',businessIcon);
+ }
+ // Animate all original tab families without changing their switching logic.
+ function animate(el){if(!el)return;el.classList.remove('motion-enter');void el.offsetWidth;el.classList.add('motion-enter')}
+ const baseMe=window.switchMe;
+ window.switchMe=function(name){baseMe(name);animate(byId(name.toLowerCase()+'Content'))};
+ const baseSend=window.switchSend;
+ window.switchSend=function(name){baseSend(name);const transfer=byId('transferContent');transfer.classList.toggle('hidden',name!=='Transfer');['Contacts','Split','More'].forEach(tab=>byId(tab.toLowerCase()+'Content').classList.toggle('hidden',tab!==name));animate(byId(name.toLowerCase()+'Content'))};
+ const baseScanner=window.switchScanner;
+ window.switchScanner=function(name){baseScanner(name);animate(byId('scannerTitle'));animate(document.querySelector('.scanner-window'))};
+ const baseMain=window.switchMain;
+ window.switchMain=function(name){baseMain(name);animate(byId(name.toLowerCase()+'Page'))};
+ // Loading sequence: black panel rises, spinner runs for 3 seconds, then keypad slides in.
+ const screen=byId('moneyScreen');
+ const loading=document.createElement('div');loading.className='money-loading';loading.innerHTML='<div class="money-spinner" role="status" aria-label="Loading"></div>';screen.append(loading);
+ let loadingTimer=0,closeTimer=0;
+ const originalOpen=window.openMoney;
+ window.openMoney=function(){
+   clearTimeout(loadingTimer);clearTimeout(closeTimer);
+   screen.classList.remove('open','leaving','ready','loading');
+   originalOpen();screen.classList.add('loading');
+   loadingTimer=setTimeout(()=>{if(screen.classList.contains('open')){screen.classList.remove('loading');screen.classList.add('ready')}},1000);
+ };
+ const originalClose=window.closeMoney;
+ window.closeMoney=function(){
+   clearTimeout(loadingTimer);clearTimeout(closeTimer);
+   if(!screen.classList.contains('open'))return;
+   screen.classList.remove('open','loading','ready');screen.classList.add('leaving');
+   closeTimer=setTimeout(()=>{screen.classList.remove('leaving');originalClose()},360);
+ };
+})();
+</script>
+
+<style>
+/* Recipient step restored without changing the existing Send tabs. */
+.recipient-flow{position:absolute;inset:0;background:#000;z-index:88;display:none;overflow:hidden}
+.recipient-flow.visible{display:block;animation:recipientIn .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes recipientIn{from{opacity:0;transform:translateX(70px)}to{opacity:1;transform:translateX(0)}}
+.recipient-close{position:absolute;right:30px;top:100px;width:94px;height:94px;border:2px solid #303030;border-radius:50%;background:#191919;font-size:58px;line-height:1}
+.recipient-title{position:absolute;top:230px;left:34px;font-size:69px;font-weight:900;letter-spacing:-3px;white-space:nowrap}
+.recipient-title .recipient-amount{color:#59c9fa;text-decoration:underline;text-underline-offset:9px}
+.recipient-search{position:absolute;top:345px;left:34px;right:34px;height:103px;border:2px solid #404040;border-radius:65px;display:flex;align-items:center;gap:25px;padding:0 35px}
+.recipient-search svg{width:37px;height:37px;flex-shrink:0}
+.recipient-search input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#fff;font-size:30px}
+.recipient-search input::placeholder{color:#aaa}
+.recipient-intro{position:absolute;top:497px;left:34px;right:34px;display:flex;align-items:center;flex-direction:column;text-align:center}
+.recipient-dollar{width:138px;height:138px;border-radius:50%;background:#59c9fa;display:grid;place-items:center;font-size:65px;font-weight:700}
+.recipient-intro h2{font-size:50px;font-weight:900;letter-spacing:-2px;margin:23px 0 0;white-space:nowrap}
+.recipient-qr{position:absolute;top:790px;left:34px;right:34px;height:170px;background:#1c1c1c;border-radius:50px;border:0;display:flex;align-items:center;text-align:left;gap:28px;padding:30px 34px;font-size:31px}
+.recipient-qr-icon{width:103px;height:103px;display:grid;place-items:center;border-radius:50%;background:#4a4a4a;flex-shrink:0;font-size:45px}
+.recipient-qr small{display:block;color:#b8b8b8;font-size:29px;margin-top:9px}
+.recipient-dimmer{position:absolute;inset:0;background:#0009;display:none;z-index:1}
+.recipient-dimmer.visible{display:block;animation:recipientDim .25s both}
+@keyframes recipientDim{from{opacity:0}to{opacity:1}}
+.recipient-confirm{position:absolute;z-index:2;bottom:0;left:17px;right:17px;height:655px;border-radius:70px 70px 0 0;background:#1b1b1b;padding:0 32px;display:none;transform:translateY(100%)}
+.recipient-confirm.visible{display:block;animation:recipientSheet .36s cubic-bezier(.2,.85,.2,1) both}
+@keyframes recipientSheet{to{transform:translateY(0)}}
+.recipient-confirm-close{position:absolute;top:33px;right:30px;width:82px;height:82px;border:0;border-radius:50%;background:#222;font-size:50px}
+.recipient-confirm h2{text-align:center;margin:160px 0 52px;font-size:48px;letter-spacing:-1.5px;line-height:1.3}
+.recipient-cancel{height:100px;width:100%;border:0;border-radius:60px;background:white;color:black;font-size:31px;font-weight:700}
+.recipient-continue{width:100%;margin-top:55px;border:0;background:none;font-size:31px;font-weight:700}
+</style>
+<div class="recipient-flow" id="recipientFlow" aria-hidden="true">
+ <button class="recipient-close" onclick="recipientExit()" aria-label="Close">×</button>
+ <div class="recipient-title"><span id="recipientVerb">Send</span> <span class="recipient-amount" id="recipientAmount">1 kr</span> <span id="recipientPreposition">to</span></div>
+ <label class="recipient-search"><svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="10" cy="10" r="7"/><path d="m15 15 7 7"/></svg><input placeholder="Name, phone, email, @username" autocomplete="off"></label>
+ <div class="recipient-intro"><div class="recipient-dollar">＄</div><h2>Simple ways to move money</h2></div>
+ <button class="recipient-qr" onclick="recipientScan()"><span class="recipient-qr-icon">▦</span><span>Scan with QR code<small>No details to enter, just pay and go</small></span></button>
+ <div class="recipient-dimmer" id="recipientDimmer"></div>
+ <div class="recipient-confirm" id="recipientConfirm"><button class="recipient-confirm-close" onclick="recipientContinue()">×</button><h2>Are you sure you want to cancel<br>the transaction?</h2><button class="recipient-cancel" onclick="recipientCancel()">Cancel Transaction</button><button class="recipient-continue" onclick="recipientContinue()">Continue with Transfer</button></div>
+</div>
+<script>
+/* Keep the existing Transfer keypad and Send/Request buttons intact. */
+window.transferAction=function(type){
+ const value=Number(transferValue.replace(',','.'));
+ if(!Number.isFinite(value)||value<=0)return;
+ const flow=document.getElementById('recipientFlow');
+ // Keep the recipient overlay inside the 828x1792 scaled app, not the browser body.
+ if(flow.parentElement!==document.querySelector('.app')) document.querySelector('.app').appendChild(flow);
+ document.getElementById('recipientVerb').textContent=type;
+ document.getElementById('recipientPreposition').textContent=type==='Request'?'from':'to';
+ document.getElementById('recipientAmount').textContent=String(transferValue).replace(',',',')+' kr';
+ document.getElementById('recipientDimmer').classList.remove('visible');
+ document.getElementById('recipientConfirm').classList.remove('visible');
+ flow.classList.add('visible');flow.setAttribute('aria-hidden','false');
+};
+window.recipientExit=function(){document.getElementById('recipientDimmer').classList.add('visible');document.getElementById('recipientConfirm').classList.add('visible')};
+window.recipientContinue=function(){document.getElementById('recipientDimmer').classList.remove('visible');document.getElementById('recipientConfirm').classList.remove('visible')};
+window.recipientCancel=function(){recipientContinue();const f=document.getElementById('recipientFlow');f.classList.remove('visible');f.setAttribute('aria-hidden','true')};
+window.recipientScan=function(){recipientCancel();openScanner()};
+</script>
+
+<style id="wallet-screen-styles">
+.wallet-screen{position:absolute;inset:0;z-index:91;background:#000;display:none;overflow:hidden;color:#fff}
+.wallet-screen.visible{display:block;animation:walletRise .38s cubic-bezier(.22,1,.36,1) both}
+.wallet-screen.closing{display:block;animation:walletFall .28s ease-in both}
+@keyframes walletRise{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes walletFall{from{transform:translateY(0)}to{transform:translateY(100%)}}
+.wallet-close{position:absolute;top:100px;right:31px;width:94px;height:94px;border-radius:50%;background:#191919;border:2px solid #333;display:grid;place-items:center;color:white;font-size:56px;font-weight:300;cursor:pointer}
+.wallet-title{position:absolute;top:213px;left:34px;margin:0;font-size:69px;line-height:1.15;font-weight:900;letter-spacing:-2.6px}
+.wallet-list{position:absolute;top:333px;left:34px;right:34px}
+.wallet-row{width:100%;min-height:190px;display:flex;align-items:flex-start;gap:26px;text-align:left;border:0;border-bottom:2px solid #353535;background:transparent;color:white;padding:13px 0 34px;cursor:pointer}
+.wallet-row+.wallet-row{padding-top:35px;min-height:235px}
+.wallet-row-icon{width:103px;height:103px;border-radius:50%;background:#393939;display:grid;place-items:center;flex:none}
+.wallet-row-icon svg{width:43px;height:43px}
+.wallet-row-copy{flex:1;padding-top:3px;font-size:31px;line-height:1.35}
+.wallet-row-copy small{display:block;color:#b6b6b6;font-size:30px;line-height:1.35;margin-top:7px}
+.wallet-chevron{font-size:56px;font-weight:200;color:#aaa;padding-top:9px;line-height:1}
+</style>
+<div class="wallet-screen" id="walletScreen" aria-hidden="true">
+ <button class="wallet-close" onclick="closeWallet()" aria-label="Close">×</button>
+ <h1 class="wallet-title">Add to Wallet</h1>
+ <div class="wallet-list">
+  <button class="wallet-row" onclick="openModal('Debit and credit cards')">
+   <span class="wallet-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="6" width="18" height="12"/><path d="M3 10h18M14 14h4"/></svg></span>
+   <span class="wallet-row-copy">Debit and credit cards<small>Keep your card info secure<br>when shopping.</small></span><span class="wallet-chevron">›</span>
+  </button>
+  <button class="wallet-row" onclick="openModal('Banks')">
+   <span class="wallet-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M2 9 12 3l10 6M4 10h16M5 10v10m5-10v10m4-10v10m5-10v10M2 21h20"/></svg></span>
+   <span class="wallet-row-copy">Banks<small>Transfer funds you receive to your bank account. Use it to make payments too.</small></span><span class="wallet-chevron">›</span>
+  </button>
+ </div>
+</div>
+<script>
+function openWallet(){const el=document.getElementById('walletScreen');const app=document.getElementById('app');if(el.parentElement!==app)app.appendChild(el);el.classList.remove('closing');el.classList.add('visible');el.setAttribute('aria-hidden','false')}
+function closeWallet(){const el=document.getElementById('walletScreen');if(!el.classList.contains('visible'))return;el.classList.remove('visible');el.classList.add('closing');el.setAttribute('aria-hidden','true');setTimeout(()=>el.classList.remove('closing'),280)}
+</script>
+<style id="seapickle-upgrade">
+/* Screenshot-matched subpages, authored in the app's original 828x1792 coordinate space. */
+.sp-page{position:absolute;inset:0;background:#000;color:white;z-index:82;display:none;overflow:hidden;font-family:'DM Sans',Arial,sans-serif}
+.sp-page.open{display:block;animation:spIn .28s ease both}
+@keyframes spIn{from{opacity:.5;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.sp-back{position:absolute;top:102px;left:32px;width:89px;height:89px;border-radius:50%;background:#242424;border:1px solid #444;color:#fff;font-size:55px;display:grid;place-items:center;z-index:4}
+.sp-scroll{position:absolute;top:205px;bottom:185px;left:34px;right:34px;overflow-y:auto;scrollbar-width:none}
+.sp-scroll::-webkit-scrollbar{display:none}
+.sp-title{font-size:64px;line-height:1.07;font-weight:900;letter-spacing:-2.7px;margin:18px 0 40px}
+.sp-description{font-size:29px;line-height:1.38;color:#bbb;margin:0 0 36px}
+.sp-heading{font-size:35px;font-weight:800;margin:38px 0 20px}
+.sp-card{background:#202020;border-radius:29px;padding:28px;margin:24px 0;font-size:30px;line-height:1.3}
+.sp-field{width:100%;height:104px;background:#202020;border:2px solid #333;border-radius:24px;color:#fff;font-size:31px;padding:0 24px;outline:none;margin:12px 0 30px}
+.sp-field:focus{border-color:#69cfff}
+.sp-label{font-size:28px;color:#aaa;margin:15px 0 0}
+.sp-row{width:100%;min-height:110px;border:0;border-bottom:2px solid #292929;background:transparent;color:#fff;display:flex;align-items:center;justify-content:space-between;text-align:left;gap:20px;font-size:30px;padding:18px 5px}
+.sp-row small{display:block;font-size:24px;color:#aaa;margin-top:10px}
+.sp-chevron{font-size:48px;color:#aaa}
+.sp-action{position:absolute;bottom:208px;left:34px;right:34px;width:calc(100% - 68px);height:102px;border-radius:60px;border:0;background:#fff;color:#000;font-size:31px;font-weight:800;z-index:2}
+.sp-toggle{width:92px;height:53px;border:0;border-radius:40px;background:#555;position:relative;flex-shrink:0}
+.sp-toggle:before{content:'';position:absolute;left:6px;top:6px;width:41px;height:41px;border-radius:50%;background:#ddd;transition:transform .2s}
+.sp-toggle.on{background:#fff}.sp-toggle.on:before{background:#111;transform:translateX(39px)}
+.sp-empty{position:absolute;left:34px;right:34px;top:620px;text-align:center;font-size:34px;line-height:1.3;font-weight:800}
+.sp-empty-icon{width:125px;height:125px;background:#303030;border-radius:50%;margin:0 auto 24px;display:grid;place-items:center;font-size:52px}
+.sp-bottom-mask{position:absolute;bottom:0;left:0;right:0;height:175px;pointer-events:none}
+.sp-pills{display:flex;gap:14px;margin:25px 0}.sp-pill{border-radius:50px;background:#222;padding:14px 23px;border:0;color:white;font-size:26px}.sp-pill.selected{background:#444}
+/* The keypad must remain in the active Send page and above all non-modal overlays. */
+#sendPage.active #transferContent:not(.hidden){display:block;visibility:visible}
+#sendPage.active #transferContent:not(.hidden) .transfer-controls{z-index:8;visibility:visible;opacity:1}
+#sendPage.active #transferContent:not(.hidden) .number-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+#sendPage.active #transferContent:not(.hidden) .number-key{display:grid;visibility:visible;pointer-events:auto}
+</style>
+<div class="sp-page" id="spPage" aria-hidden="true">
+ <button class="sp-back" onclick="spClose()" aria-label="Back">‹</button>
+ <div class="sp-scroll" id="spBody"></div>
+ <button class="sp-action" id="spAction" style="display:none"></button>
+</div>
+<script id="seapickle-logic">
+(function(){
+ const sp=document.getElementById('spPage'),body=document.getElementById('spBody'),action=document.getElementById('spAction');
+ document.getElementById('app').appendChild(sp);
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ let current='',backStack=[];
+ const title=s=>`<h1 class="sp-title">${s}</h1>`;
+ const row=(name,sub='',target='')=>`<button class="sp-row" data-sp="${escape(target||name)}"><span>${name}${sub?`<small>${sub}</small>`:''}</span><span class="sp-chevron">›</span></button>`;
+ const field=(name,key,type='text')=>`<div class="sp-label">${name}</div><input class="sp-field" data-profile="${key}" type="${type}" value="${escape(demoProfile[key]||'')}">`;
+ const toggle=(name,key,sub='')=>`<div class="sp-row"><span>${name}${sub?`<small>${sub}</small>`:''}</span><button class="sp-toggle ${demoProfile[key]?'on':''}" data-toggle="${key}" aria-label="Toggle ${escape(name)}"></button></div>`;
+ const pages={
+  'Address':()=>title('Addresses')+`<div class="sp-pills"><button class="sp-pill selected" data-pill="All">All</button><button class="sp-pill" data-pill="Account">Account</button><button class="sp-pill" data-pill="Shipping">Shipping</button></div><div class="sp-heading">Account</div><div class="sp-card">${escape(demoProfile.address||'No account address added')}<small style="display:block;color:#aaa">Preferred · Primary</small></div><div class="sp-heading">Shipping</div><div style="text-align:center;margin-top:240px;font-size:29px;color:#aaa">▣<p>No shipping address yet</p><small>Your primary address will be auto-selected when you check out with baby.</small></div>`,
+  'Create profile':()=>title('Create profile')+`<div class="sp-card" style="width:100px;height:100px;border-radius:50%;display:grid;place-items:center">${escape((demoProfile.name||'J').slice(0,1))}</div>${field('Username','username')}<div class="sp-label">Location</div><select class="sp-field" id="spLocation"><option>Vallentuna</option><option>Stockholm</option><option>Other</option></select><p class="sp-description">Your location will be public. Change it here anytime.</p><p class="sp-description" style="margin-top:120px">You agree that your name, photo, username, email and mobile number can be shown to others to make it easier to find you on baby.</p>`,
+  'Profile visibility':()=>title('Profile visibility')+`<p class="sp-description">Manage how people on baby find you</p><p class="sp-description">Give others confidence they're reaching the right person when sending and requesting money.</p><div class="sp-heading">By name</div>${toggle('By name','findByName')}<div class="sp-heading">By phone and email</div>${toggle('By phone and email','findByContact')}<div class="sp-heading">Manage how people outside baby find you</div>${toggle('By People on Venmo','findExternal','Only your first name and last initial are visible by default.')}`,
+  'Online payments':()=>title('Choose your preferred way to pay online')+`<p class="sp-description">We'll use this when you shop online or send money for goods and services</p><div class="sp-card"><div style="display:flex;gap:20px"><img src="babylogo.png" alt="baby logo" style="width:85px;height:85px;object-fit:contain"><span>PayPal balance<br><small style="color:#aaa">0,00 kr</small><p style="font-size:23px;color:#aaa">If you don't have enough money in your balance, we'll ask you to pick one of your other payment methods.</p></span></div>${row('Add a way to pay','','Add to Wallet')}</div>`,
+  'Passkeys':()=>title('Add an extra layer of security in seconds')+`<p class="sp-description">Passkeys provide the most secure and seamless way to log in without a password or extra steps.</p><div class="sp-card" style="background:none">♧ &nbsp; Easy, one-step setup<br><br>♙ &nbsp; Secure, passwordless logins<br><br>▢ &nbsp; Works across devices</div>${row('How passkeys work')}`,
+  'Password':()=>title('Change your password')+`<div class="sp-label">Confirm your current password</div><input class="sp-field" type="password" placeholder="Current password"><div class="sp-label">Enter your new password</div><input class="sp-field" type="password" placeholder="Password"><input class="sp-field" type="password" placeholder="Re-enter password">`,
+  'Connected apps and sites':()=>`<div class="sp-empty"><div class="sp-empty-icon">♙</div>You don't have any apps or sites<br>connected to your account</div>`,
+  'Personalized offers':()=>title('Personalised offers')+`<div class="sp-card">${toggle('Personalised offers from us','offers','See tailored offers and products you qualify for based on your baby activity, purchase history and profile info.')}</div><p class="sp-description">When this preference is off, you'll still see offers but they may not be as relevant to you.</p>`,
+  'Download or delete your data':()=>title('Download or delete your data')+row('Download your data')+row('Delete your data'),
+  'Push notifications':()=>title('Push notifications')+`<p class="sp-description">Choose the notifications you want to get in your app. Keep in mind, we'll still send you notifications for security reasons or if we need to contact you about your account.</p><div class="sp-card">${['Receive a request for payments','Send payments','Receive payments','Have a purchase or rewards update','Info about keeping your account up to date','Announcements, offers and incentives tailored for you','Receive direct messages'].map((x,i)=>toggle(x,'push'+i)).join('')}</div>`,
+  'Download your data':()=>title('Download your data')+`<p class="sp-description">This demo stores only local settings. No real financial data is available.</p>`,
+  'Delete your data':()=>title('Delete your data')+`<p class="sp-description">Delete the local demo profile settings stored in this browser.</p>`,
+  'Add to Wallet':()=>title('Add to Wallet')+row('Debit and credit cards','Keep your card info secure when shopping.')+row('Banks','Transfer funds you receive to your bank account. Use it to make payments too.')
+ };
+ const buttons={'Address':['Add Address',()=>spGo('Edit address')],'Create profile':['Save',()=>{spSaveFields();spClose()}],'Online payments':['Save',()=>spClose()],'Passkeys':['Add Passkey',()=>alert('Passkeys are not available in this local demo.')],'Password':['Change Password',()=>alert('Password changes are not available in this local demo.')],'Delete your data':['Delete local settings',()=>{localStorage.removeItem('iphone-original-settings');location.reload()}],'Edit address':['Save',()=>{spSaveFields();spClose()}]};
+ pages['Edit address']=()=>title('Add Address')+field('Street address','address')+field('City','city')+field('Postal code','postal');
+ function spSaveFields(){body.querySelectorAll('[data-profile]').forEach(el=>demoProfile[el.dataset.profile]=el.value.trim());demoSave();renderOriginalSettings()}
+ window.spGo=function(name,push=true){if(push&&current)backStack.push(current);current=name;body.innerHTML=(pages[name]||(()=>title(escape(name))+`<p class="sp-description">This feature is not connected to a real account in the demo.</p>`))();body.scrollTop=0;const a=buttons[name];action.style.display=a?'block':'none';if(a){action.textContent=a[0];action.onclick=a[1]}sp.classList.add('open');sp.setAttribute('aria-hidden','false')};
+ window.spClose=function(){if(backStack.length){spGo(backStack.pop(),false);return}sp.classList.remove('open');sp.setAttribute('aria-hidden','true');current=''};
+ body.addEventListener('click',e=>{const t=e.target.closest('[data-sp]');if(t){spGo(t.dataset.sp);return}const tog=e.target.closest('[data-toggle]');if(tog){const key=tog.dataset.toggle;demoProfile[key]=!demoProfile[key];demoSave();tog.classList.toggle('on',demoProfile[key])}const pill=e.target.closest('[data-pill]');if(pill){body.querySelectorAll('[data-pill]').forEach(x=>x.classList.toggle('selected',x===pill))}});
+ // Route screenshot-backed settings entries to full-screen pages, leaving other editors intact.
+ const settings=document.getElementById('settingsContent');
+ settings.addEventListener('click',e=>{const el=e.target.closest('[data-setting-action]');if(!el)return;const k=el.dataset.settingAction;const mapping={'edit:address':'Address','edit:username':'Create profile','edit:visibility':'Profile visibility','info:Online payments':'Online payments','info:Passkeys':'Passkeys','info:Password':'Password','info:Connected apps and sites':'Connected apps and sites','info:Download or delete your data':'Download or delete your data'};if(mapping[k]){e.stopImmediatePropagation();spGo(mapping[k])}},true);
+ // Settings rows which are switches in the original UI can also open screenshot-matched preference pages via label clicks.
+ settings.addEventListener('click',e=>{const label=e.target.closest('.settings-row-text');if(!label)return;const txt=label.textContent.trim();if(txt.startsWith('Personalized offers')){e.stopImmediatePropagation();spGo('Personalized offers')}else if(txt.startsWith('Push notifications')){e.stopImmediatePropagation();spGo('Push notifications')}},true);
+ // Preserve keypad even when changing main navigation and returning to Transfer.
+ const oldMain=window.switchMain;window.switchMain=function(name){oldMain(name);if(name==='Send'&&currentSend==='Transfer'){document.getElementById('transferContent').classList.remove('hidden');document.getElementById('transferKeys').style.display='grid'}};
+ const oldSend=window.switchSend;window.switchSend=function(name){oldSend(name);if(name==='Transfer'){document.getElementById('transferKeys').style.display='grid'}};
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sp.classList.contains('open')){e.stopImmediatePropagation();spClose()}},true);
+})();
+</script>
+
+<style id="mission-final-styles">/* Additional screenshot-based pages, built on the existing 828 x 1792 app grid */
+.sp-page{z-index:88}.sp-scroll{top:210px;bottom:185px}.sp-action{bottom:202px}.sp-title{margin-top:60px;margin-bottom:56px}.mission-centered-title{font-size:36px;font-weight:700;text-align:center;margin:-77px 0 115px}.mission-outline-card{width:100%;background:transparent;border:2px solid #444;border-radius:50px;padding:32px;text-align:left;font-size:31px;min-height:175px}.mission-outline-card>div{margin-top:17px}.mission-outline-card small{display:block;color:#aaa;margin-top:12px}.mission-tag{display:inline-block;background:#424242;border-radius:9px;padding:8px 14px;font-weight:700;font-size:25px}.mission-tag.gold{background:#865800}.mission-label{display:block;font-size:29px;margin-top:30px}.mission-label .sp-field{display:block}.mission-toggle-card{background:#1e1e1e;border-radius:50px;padding:10px 33px;margin-top:50px}.mission-toggle-row{min-height:135px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:2px solid #424242;font-size:29px;line-height:1.38}.mission-toggle-row:last-child{border:0}.mission-toggle-row small{display:block;color:#bcbcbc;font-size:27px;margin-top:24px}.mission-toggle-row:has(small){padding:28px 0}.mission-toggle-row .sp-toggle{width:120px;height:69px}.mission-toggle-row .sp-toggle:before{width:56px;height:56px}.mission-toggle-row .sp-toggle.on:before{transform:translateX(51px)}.mission-subheading{font-size:34px;margin:50px 0 25px}.mission-password-form label{display:block;font-size:29px;margin:55px 0}.mission-password-wrap{position:relative;margin:30px 0 45px}.mission-password-wrap input{width:100%;height:136px;background:#1d1d1d;border:2px solid #4b4b4b;border-radius:25px;color:white;font-size:34px;padding:0 75px 0 25px}.mission-password-wrap button{position:absolute;right:20px;top:38px;background:none;border:0;font-size:38px}.mission-pass-benefits{font-size:29px;color:#aaa;margin:60px 0}.mission-pass-benefits p{margin:28px 0}.mission-link{border:0;background:none;color:white;text-decoration:underline;font-size:30px;font-weight:700}.mission-empty-centered{position:absolute;top:560px;left:0;right:0;text-align:center}.mission-empty-centered h2{font-size:47px;line-height:1.2;letter-spacing:-1px}.mission-empty-circle{width:140px;height:140px;border-radius:50%;background:#363636;display:grid;place-items:center;margin:0 auto 40px;font-size:65px;color:#ddd}.mission-address-pills{display:flex;gap:25px;margin:25px 0 40px}.mission-address-pills .sp-pill{border:2px solid #555;background:transparent;padding:17px 32px;font-weight:700}.mission-address-pills .selected{background:#222;border-color:white}.mission-grey-heading{font-size:30px;color:#aaa}.mission-address-card{display:block;position:relative;text-align:left;background:#1e1e1e;width:100%;min-height:238px;border:0;border-radius:50px;padding:38px;font-size:31px;font-weight:700;line-height:1.38}.mission-tags{display:block;font-size:22px;background:#4a4a4a;border-radius:10px;margin-top:20px;padding:9px}.mission-shipping-empty{text-align:center;margin-top:70px;font-size:30px}.mission-shipping-empty p{color:#aaa;line-height:1.4}.mission-profile-avatar{width:140px;height:140px;border:0;border-radius:50%;background:#3a3a3a;font-size:36px;margin-bottom:35px}.mission-available{color:#6eddb2;font-size:27px}.mission-profile-terms{margin-top:220px;color:#aaa;text-align:center;font-size:27px;line-height:1.35}.mission-online-card{background:#1e1e1e;border:2px solid #444;border-radius:50px;padding:33px;margin-top:45px}.mission-online-balance{display:flex;gap:26px;align-items:center;padding:30px 0}.mission-online-balance b{font-size:30px}.mission-online-balance p{color:#aaa;font-size:30px}.mission-online-balance small{font-size:27px;color:#aaa}.mission-baby-avatar{display:inline-grid;place-items:center;width:105px;height:105px;flex-shrink:0;border-radius:50%;background:white;color:#0563ca;font-size:24px;font-weight:900}.mission-business-art{height:470px;position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin:0 0 50px}.mission-business-art span{display:grid;place-items:center;min-width:175px;height:115px;border-radius:32px;background:#2357bb;transform:rotate(-15deg);font-size:27px;font-weight:900;box-shadow:0 16px 0 #112e65}.mission-business-art span:nth-child(2){background:#282828}.mission-business-art span:nth-child(3){background:#eee;color:#2061bc}.mission-business-art span:nth-child(4){background:#08798b}.mission-business-art span:nth-child(5){background:#08753c}.mission-business-art span:nth-child(6){background:#0d48bc}.mission-business-art span:nth-child(7){background:#ef365a}.mission-business-title{text-align:center;font-size:49px;line-height:1.38;margin:0 0 20px}.mission-inbox-head{margin-top:-110px;margin-bottom:110px}.mission-inbox-item{width:100%;display:flex;gap:22px;text-align:left;background:none;border:0;font-size:30px;align-items:flex-start}.mission-inbox-item small{display:block;color:#aaa;font-size:28px;margin-top:12px}.mission-photo-options{background:#1c1c1c;border-radius:45px;padding:65px 35px;margin-top:500px}.mission-photo-options button{display:block;width:100%;height:90px;background:none;border:0;text-align:left;font-size:32px}.mission-top-close{display:flex;justify-content:space-between}.mission-top-close button{border:1px solid #444;background:#222;border-radius:50%;width:88px;height:88px;font-size:55px}.mission-balance-card{background:#1b1b1b;border-radius:50px;padding:35px;margin-top:40px;font-size:36px}.mission-white{display:block;width:100%;height:105px;border:0;border-radius:60px;background:#fff;color:#000;font-size:32px;font-weight:800;margin-top:60px}.mission-camera{height:715px;margin:-10px -34px 0;position:relative;background:#0a0a0a;overflow:hidden}.mission-camera video{width:100%;height:100%;object-fit:cover}.mission-camera-frame{position:absolute;top:170px;left:13%;width:74%;height:350px;border:9px solid #aaa;border-radius:42px}.mission-camera-error{position:absolute;top:50%;left:0;right:0;text-align:center;font-size:27px}.mission-flash{position:absolute;bottom:25px;left:30px;border:1px solid #555;border-radius:50%;background:#222;width:90px;height:90px;font-size:50px}.mission-scan-hint{text-align:center;font-size:29px;margin-top:40px}.mission-card-method{position:absolute;top:1250px;left:0;right:0;background:#1c1c1c;border-radius:35px;padding:25px;font-size:27px;text-align:center}.mission-card-method .sp-row{font-size:30px}.mission-toast{position:absolute;z-index:99;top:260px;left:90px;right:90px;text-align:center;background:#333;border:1px solid #777;border-radius:25px;padding:20px;font-size:29px}
+
+#bottomNav{z-index:92}
+#app:has(#spPage.open #missionCardVideo) #bottomNav,#app:has(#spPage.open .mission-balance-card) #bottomNav{display:none}
+</style>
+<script id="mission-final-logic">(()=>{
+'use strict';
+const $=id=>document.getElementById(id),sp=$('spPage'),body=$('spBody'),action=$('spAction');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const h=t=>`<h1 class="sp-title">${t}</h1>`,desc=t=>`<p class="sp-description">${t}</p>`;
+const row=(t,sub='',dest=t)=>`<button class="sp-row" data-sp="${esc(dest)}"><span>${t}${sub?`<small>${sub}</small>`:''}</span><span class="sp-chevron">›</span></button>`;
+const input=(label,key,type='text',value='')=>`<label class="mission-label">${label}<input class="sp-field" data-mission-input="${key}" type="${type}" value="${esc(value)}" placeholder="${esc(label)}"></label>`;
+const sw=(label,key,sub='')=>`<div class="mission-toggle-row"><span>${label}${sub?`<small>${sub}</small>`:''}</span><button class="sp-toggle ${missionData[key]?'on':''}" data-mission-toggle="${key}" aria-label="${esc(label)}"></button></div>`;
+const btn=(label,handler)=>{action.style.display='block';action.textContent=label;action.onclick=handler};
+const hideBtn=()=>{action.style.display='none';action.onclick=null};
+let missionData={};try{missionData=JSON.parse(localStorage.getItem('baby-mission-v3')||'{}')}catch{}
+try{if(localStorage.getItem('baby-clean-mission-v2')!=='yes'){for(const k of ['email','phone','address','username','location'])delete missionData[k];localStorage.setItem('baby-mission-v3',JSON.stringify(missionData));localStorage.setItem('baby-clean-mission-v2','yes')}}catch(e){}
+const save=()=>{try{localStorage.setItem('baby-mission-v3',JSON.stringify(missionData))}catch{}};
+const accountAddress=()=>demoProfile.address||'';
+const locations=('Vallentuna|Stockholm|Täby|Sollentuna|Danderyd|Österåker|Åkersberga|Norrtälje|Uppsala|Sigtuna|Märsta|Upplands Väsby|Järfälla|Solna|Sundbyberg|Lidingö|Nacka|Värmdö|Tyresö|Haninge|Huddinge|Botkyrka|Södertälje|Nykvarn|Ekerö|Nynäshamn|Enköping|Knivsta|Östhammar|Tierp|Heby|Västerås|Eskilstuna|Strängnäs|Köping|Arboga|Sala|Örebro|Karlskoga|Kumla|Nyköping|Oxelösund|Katrineholm|Flen|Trosa|Linköping|Norrköping|Motala|Mjölby|Finspång|Vadstena|Jönköping|Huskvarna|Nässjö|Eksjö|Värnamo|Gislaved|Vetlanda|Tranås|Kalmar|Oskarshamn|Västervik|Vimmerby|Nybro|Växjö|Ljungby|Älmhult|Alvesta|Karlskrona|Karlshamn|Ronneby|Sölvesborg|Malmö|Lund|Helsingborg|Landskrona|Trelleborg|Ystad|Eslöv|Höör|Hässleholm|Kristianstad|Ängelholm|Höganäs|Båstad|Simrishamn|Göteborg|Mölndal|Partille|Kungälv|Kungsbacka|Lerum|Alingsås|Borås|Trollhättan|Vänersborg|Uddevalla|Lysekil|Strömstad|Skövde|Lidköping|Mariestad|Falköping|Varberg|Falkenberg|Halmstad|Laholm|Karlstad|Kristinehamn|Arvika|Säffle|Torsby|Falun|Borlänge|Ludvika|Avesta|Mora|Leksand|Gävle|Sandviken|Hudiksvall|Bollnäs|Söderhamn|Ljusdal|Sundsvall|Härnösand|Örnsköldsvik|Kramfors|Timrå|Östersund|Åre|Strömsund|Umeå|Skellefteå|Lycksele|Vilhelmina|Luleå|Piteå|Boden|Kalix|Haparanda|Kiruna|Gällivare|Jokkmokk|Visby|Other').split('|');
+function locationOptions(){const selected=missionData.location||demoProfile.location||'';return [...new Set([...locations,selected])].map(x=>`<option value="${esc(x)}" ${x===selected?'selected':''}>${esc(x)}</option>`).join('')}
+const notice=t=>{const e=document.createElement('div');e.className='mission-toast';e.textContent=t;sp.appendChild(e);setTimeout(()=>e.remove(),2300)};
+const originalGo=window.spGo,originalClose=window.spClose;
+let current='';
+let missionHistory=[];let navigatingBack=false;
+function show(name,html,label,callback){current=name;originalGo(name,false);body.innerHTML=html;body.scrollTop=0;hideBtn();if(label)btn(label,callback);sp.classList.add('open')}
+function fieldSave(keys){for(const key of keys){const el=body.querySelector(`[data-mission-input="${key}"]`);if(el)missionData[key]=el.value.trim()}save()}
+function open(name){
+ if(!sp.classList.contains('open')) missionHistory=[];
+ if(!navigatingBack && sp.classList.contains('open') && current && current!==name) missionHistory.push(current);
+ navigatingBack=false;
+ switch(name){
+ case 'Emails':show(name,`<div class="mission-centered-title">Emails</div>${desc('Pay, get paid, and more. Make sure you link your preferred email addresses.')}${demoProfile.email?`<button class="mission-outline-card" data-sp="Edit email"><span class="mission-tag">Primary</span> <span class="mission-tag gold">Unconfirmed</span><div>${esc(demoProfile.email)}</div></button>`:`<p class="mission-grey-heading">No email address added yet.</p>`}`,'Add Email Address',()=>open('Add email'));break;
+ case 'Phone Numbers':show(name,`<div class="mission-centered-title">Phone Numbers</div>${desc('Manage your communication preferences.')}${demoProfile.phone?`<button class="mission-outline-card" data-sp="Edit phone"><span class="mission-tag">Primary</span><div>${esc((demoProfile.phone||'').replace(/^(\d\d).*(\d\d)$/,'$1*-*** ** $2'))}</div><small>Mobile</small></button>`:`<p class="mission-grey-heading">No phone number added yet.</p>`}`,'Add Phone Number',()=>open('Add phone'));break;
+ case 'Add email':case 'Edit email':show(name,h(name==='Add email'?'Add Email Address':'Email Address')+input('Email address','email','email',name==='Edit email'?demoProfile.email:''),'Save',()=>{fieldSave(['email']);if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(missionData.email||'')){notice('Enter a valid email address');return}demoProfile.email=missionData.email;demoSave();renderOriginalSettings();open('Emails')});break;
+ case 'Add phone':case 'Edit phone':show(name,h(name==='Add phone'?'Add Phone Number':'Phone Number')+input('Phone number','phone','tel',name==='Edit phone'?demoProfile.phone:''),'Save',()=>{fieldSave(['phone']);demoProfile.phone=missionData.phone;demoSave();renderOriginalSettings();open('Phone Numbers')});break;
+ case 'Photo options':show(name,`<div class="mission-centered-title">Profile photo</div><div class="mission-photo-options"><button data-photo="camera">▣ &nbsp; Take new photo</button><button data-photo="gallery">▧ &nbsp; Choose existing photo</button></div><input id="missionPhotoFile" type="file" accept="image/*" hidden>`);break;
+ case 'Linked businesses':show(name,`<div class="mission-business-art"><span>Booking</span><span>Uber</span><span>eBay</span><span>Steam</span><span>HELLO<br>FRESH</span><span><img src="babylogo.png" alt="baby logo" class="fix-tile-logo"></span><span>Airbnb</span></div><h2 class="mission-business-title">Check out faster by linking baby to your favorite businesses</h2>`);break;
+ case 'Notifications inbox':show(name,`<div class="mission-inbox-head"><button class="sp-pill selected">All</button></div><button class="mission-inbox-item" data-sp="Confirm email"><span class="mission-baby-avatar"><img src="babylogo.png" alt="baby logo"></span><span>Confirm your email address<small>A quick confirmation helps you stay up to date on your account.<br>11h</small></span><span>⋮</span></button>`);break;
+ case 'Confirm email':show(name,h('Confirm your email address')+desc('A quick confirmation helps you stay up to date on your account.')+desc('Email: '+esc(demoProfile.email||'')),'OK',()=>open('Notifications inbox'));break;
+ case 'Add balance payment':{
+ const sum=Number(String(moneyValue).replace(',','.'))||0;
+ let available=[];try{available=JSON.parse(localStorage.getItem('baby-demo-card-list')||'[]')}catch{}
+ const chosen=available[0];
+ const display=chosen?`<div class="mission-balance-card"><b>With your saved card</b><div class="mission-saved-funding"><span class="mission-funding-icon">▤</span><span>${esc(chosen.brand)} ••••${esc(chosen.last4)}<small>Expires ${esc(chosen.expiry)} · Card</small></span></div><button class="mission-funding-change" data-sp="Card scanner">Use a different Card</button></div>`:`<div class="mission-balance-card"><b>With</b><button class="mission-white" data-sp="Card scanner">＋ Add a demo debit card</button></div>`;
+ show(name,`<div class="mission-top-close"><button data-mission-back>‹</button><button data-mission-close>×</button></div>${h('Add '+esc(moneyValue||'10')+' kr to<br>PayPal balance')}${display}<p class="mission-demo-disclaimer">Disclaimer: you must be atleast 18 years old to use PayPal services.</p>`,chosen?'Add money':undefined,chosen?()=>{
+  if(!(sum>0))return;
+  balance=Math.round((balance+sum)*100)/100;
+  $('balance').textContent=formatMoney(balance);
+  window.spClose();
+  if(typeof window.switchMain==='function')window.switchMain('Me');
+  if(typeof window.switchMe==='function')window.switchMe('Accounts');
+ }:undefined);
+ break;}
+
+ case 'Card scanner':show(name,`<div class="mission-camera"><video id="missionCardVideo" autoplay muted playsinline></video><div class="mission-camera-frame"></div><button class="mission-flash" data-flash>ϟ</button></div><p class="mission-scan-hint">Hold your card in the frame to scan the number</p><div class="mission-card-method"><p>Or choose a different way to add your card</p>${row('Enter your card info','','Enter card info')}</div>`);startCardCamera();break;
+ case 'Enter card info':show(name,h('Add a debit or credit card')+input('Card number','cardNumber','text')+input('Expiration (MM/YY)','expiry')+input('Security code','security','password')+input('Name on card','cardName'),'Save',()=>{notice('Card entry is a visual demo; no card data is saved')});break;
+ case 'Push notifications':show(name,`<div class="mission-centered-title">Push notifications</div>${desc('Choose the notifications you want to get in your app. Keep in mind, we’ll still send you notifications for security reasons or if we need to contact you about your account.')}<div class="mission-toggle-card">${['Receive a request for payments','Send payments','Receive payments','Have a purchase or rewards update','Info about keeping your account up to date','Announcements, offers and incentives tailored for you','Receive direct messages'].map((t,i)=>sw(t,'push'+i)).join('')}</div>`);break;
+ case 'Personalized offers':show(name,h('Personalised offers')+`<div class="mission-toggle-card" style="margin-top:80px">${sw('Personalised offers from us','offers','See tailored offers and products you qualify for based on your baby activity, purchase history and profile info.')}</div>${desc("When this preference is off, you'll still see offers but they may not be as relevant to you.")}`);break;
+ case 'Password':show(name,h('Change your password')+`<div class="mission-password-form"><label>Confirm your current password<div class="mission-password-wrap"><input placeholder="Current password" type="password" data-pw="old"><button data-eye>◉</button></div></label><label>Enter your new password<div class="mission-password-wrap"><input placeholder="Password" type="password" data-pw="new"><button data-eye>◉</button></div></label><div class="mission-password-wrap"><input placeholder="Re-enter password" type="password" data-pw="repeat"><button data-eye>◉</button></div></div>`,'Change Password',()=>{const a=body.querySelector('[data-pw="new"]').value,b=body.querySelector('[data-pw="repeat"]').value;if(!a||a!==b){notice('Passwords must match');return}notice('Password changes require a secure account service')});break;
+ case 'Passkeys':show(name,h('Add an extra layer of security in seconds')+desc('Passkeys provide the most secure and seamless way to log in without a password or extra steps.')+`<div class="mission-pass-benefits"><p>♧ &nbsp; Easy, one-step setup</p><p>♢ &nbsp; Secure, passwordless logins</p><p>▣ &nbsp; Works across devices</p></div><button class="mission-link" data-sp="How passkeys work">How passkeys work</button>`,'Add Passkey',()=>{if(!window.PublicKeyCredential)notice('Passkeys are not supported here');else notice('Passkey registration requires a secure account server')});break;
+ case 'How passkeys work':show(name,h('How passkeys work')+desc('Passkeys use your device’s secure sign-in method, such as a fingerprint, face scan, or screen lock.'));break;
+ case 'Connected apps and sites':show(name,`<div class="mission-empty-centered"><div class="mission-empty-circle">♧</div><h2>You don't have any apps or sites connected to your account</h2></div>`);break;
+ case 'Address':renderAddress('All');break;
+ case 'Create profile':show(name,`<div class="mission-centered-title">Create profile</div><button class="mission-profile-avatar" data-sp="Photo options">${esc((demoProfile.name||'').split(' ').map(x=>x[0]).join(''))} ✎</button>${input('@username','username','text',demoProfile.username||'')}<div class="mission-available">✓ Username available</div><label class="mission-label">Location<select class="sp-field" data-mission-input="location">${locationOptions()}</select></label>${desc('Your location will be public. Change it here anytime.')}<div class="mission-profile-terms">You agree that your name, photo, username, email and mobile number can be shown to others to make it easier to find you on baby and to transact with you. You also agree to our <u>Terms and Conditions</u> and <u>Privacy Statement</u>.</div>`,'Save',()=>{fieldSave(['username','location']);demoProfile.username=missionData.username;demoSave();renderOriginalSettings();originalClose()});break;
+ case 'Profile visibility':show(name,h('Profile visibility')+`<h3 class="mission-subheading">Manage how people on baby find you</h3>${desc("Give others confidence they're reaching the right person when sending and requesting money.")}${sw('By name','findByName')}${sw('By phone and email','findByContact')}<hr><h3 class="mission-subheading">Manage how people outside baby find you</h3>${sw('By People on Venmo','findExternal','Only your first name and last initial are visible by default. Turn on so senders know they’re paying the right person.')}`);break;
+ case 'Online payments':show(name,h('Choose your preferred way to pay online')+desc("We'll use this when you shop online or send money for goods and services")+`<div class="mission-online-card"><div class="mission-online-balance"><span class="mission-baby-avatar"><img src="babylogo.png" alt="baby logo"></span><div><b>PayPal balance</b><p>${esc(document.getElementById('balance').textContent)}</p><small>If you don't have enough money in your balance, we'll ask you to pick one of your other payment methods.</small></div></div>${row('＋　Add a way to pay','','Add to Wallet')}</div>`,'Save',()=>originalClose());break;
+ case 'Download or delete your data':show(name,h('Download or delete your data')+row('Download your data')+row('Delete your data'));break;
+ case 'Download your data':show(name,h('Download your data')+desc('Export locally saved demo preferences and profile details.'),'Download',()=>{const blob=new Blob([JSON.stringify({profile:demoProfile,preferences:missionData},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='baby-demo-data.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});break;
+ case 'Delete your data':show(name,h('Delete your data')+desc('Delete locally stored demo settings and profile information. This does not affect any real account.'),'Delete local settings',()=>{if(confirm('Delete locally stored demo data?')){localStorage.removeItem('baby-mission-v3');localStorage.removeItem('iphone-original-settings');location.reload()}});break;
+ default:originalGo(name);current=name;
+ }
+}
+function renderAddress(filter){show('Address',`<div class="mission-centered-title">Addresses</div><div class="mission-address-pills">${['All','Account','Shipping'].map(t=>`<button class="sp-pill ${t===filter?'selected':''}" data-address-filter="${t}">${t}</button>`).join('')}</div>${filter!=='Shipping'?`<h3 class="mission-grey-heading">Account</h3><button class="mission-address-card" data-sp="Edit address">${accountAddress()?esc(accountAddress()).replace(/\n/g,'<br>'):'No account address added yet'}${accountAddress()?'<span class="mission-tags">Preferred ▣ &nbsp; Primary ✉</span>':''}</button>`:''}${filter!=='Account'?`<h3 class="mission-grey-heading">Shipping</h3><div class="mission-shipping-empty"><div class="mission-empty-circle">♧</div><b>No shipping address yet</b><p>Your primary address will be auto-selected when you check out with baby</p></div>`:''}`,'Add Address',()=>open('Edit address'))}
+const priorGo=window.spGo;window.spGo=function(name,push){if(name==='Add to Wallet'){openWallet();return}open(name)};
+// Capture existing settings entries before their old generic modal handlers.
+$('settingsContent').addEventListener('click',e=>{const item=e.target.closest('[data-setting-action]');if(!item)return;const k=item.dataset.settingAction;const map={'edit:email':'Emails','edit:phone':'Phone Numbers','edit:photo':'Photo options','info:Linked businesses':'Linked businesses','info:Message Center':'Notifications inbox'};if(map[k]){e.stopImmediatePropagation();e.preventDefault();open(map[k])}},true);
+// Route the existing account payment preference and bell to their screenshot-backed screens.
+const pref=document.querySelector('#accountsContent .preference-card');if(pref){pref.onclick=e=>{e.stopPropagation();open('Online payments')}};
+document.querySelectorAll('.bell').forEach(b=>b.onclick=()=>open('Notifications inbox'));
+// Next must lead to the payment method screen, not silently mint demo balance.
+window.addMoney=function(){const amount=Number(String(moneyValue).replace(',','.'));if(!Number.isFinite(amount)||amount<=0)return;document.getElementById('moneyScreen').classList.remove('open','ready','loading');open('Add balance payment')};
+// Debit-card entry is reached from the existing Add to Wallet screen.
+const walletDebit=document.querySelector('#walletScreen .wallet-row');if(walletDebit)walletDebit.onclick=()=>{closeWallet();open('Card scanner')};
+// Existing transfer keys are never rebuilt or removed during tab transitions.
+const transfer=document.getElementById('transferContent');if(transfer){transfer.style.willChange='auto';const originalSend=window.switchSend;window.switchSend=function(name){originalSend(name);if(name==='Transfer'){transfer.classList.remove('hidden');const keys=document.getElementById('transferKeys');keys.style.removeProperty('display');keys.style.visibility='visible';keys.style.opacity='1'}}}
+// Events on the new screenshot-backed screens.
+body.addEventListener('click',e=>{
+ const f=e.target.closest('[data-address-filter]');if(f){e.stopImmediatePropagation();renderAddress(f.dataset.addressFilter);return}
+ const t=e.target.closest('[data-mission-toggle]');if(t){e.stopImmediatePropagation();const k=t.dataset.missionToggle;missionData[k]=!(missionData[k]??(k==='offers'||k.startsWith('push')));save();t.classList.toggle('on',missionData[k]);return}
+ const eye=e.target.closest('[data-eye]');if(eye){e.stopImmediatePropagation();const input=eye.parentElement.querySelector('input');input.type=input.type==='password'?'text':'password';return}
+ const photo=e.target.closest('[data-photo]');if(photo){e.stopImmediatePropagation();const file=document.getElementById('missionPhotoFile');if(photo.dataset.photo==='camera')file.setAttribute('capture','user');else file.removeAttribute('capture');file.click();return}
+ const back=e.target.closest('[data-mission-back]');if(back){e.stopImmediatePropagation();open('Card scanner');return}
+ const close=e.target.closest('[data-mission-close]');if(close){e.stopImmediatePropagation();originalClose();return}
+ const flash=e.target.closest('[data-flash]');if(flash){e.stopImmediatePropagation();const track=cardStream?.getVideoTracks()[0];if(track?.getCapabilities?.().torch){const on=!flash.classList.contains('on');track.applyConstraints({advanced:[{torch:on}]}).catch(()=>{});flash.classList.toggle('on',on)}else notice('Flashlight is not available on this device')}
+},true);
+body.addEventListener('change',e=>{if(e.target.id==='missionPhotoFile'){const f=e.target.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{demoProfile.photo=reader.result;demoSave();renderOriginalSettings();originalClose()};reader.readAsDataURL(f)}});
+let cardStream=null;
+async function startCardCamera(){if(cardStream)cardStream.getTracks().forEach(t=>t.stop());cardStream=null;const video=$('missionCardVideo');if(!video)return;try{cardStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});if(video.isConnected){video.srcObject=cardStream;await video.play().catch(()=>{})}else cardStream.getTracks().forEach(t=>t.stop())}catch{video.insertAdjacentHTML('afterend','<div class="mission-camera-error">Camera permission or HTTPS required</div>')}}
+const oldClose=window.spClose;window.spClose=function(){
+ if(current==='Card scanner'&&cardStream){cardStream.getTracks().forEach(t=>t.stop());cardStream=null}
+ // Root settings pages must always return to Settings, never reopen a child.
+ const settingsRoots=new Set(['Emails','Phone Numbers','Address','Create profile','Profile visibility','Photo options','Online payments','Push notifications','Personalized offers','Password','Passkeys','Connected apps and sites','Download or delete your data','Linked businesses']);
+ const parentPages={'Add email':'Emails','Edit email':'Emails','Add phone':'Phone Numbers','Edit phone':'Phone Numbers','Edit address':'Address','How passkeys work':'Passkeys','Download your data':'Download or delete your data','Delete your data':'Download or delete your data','Confirm email':'Notifications inbox','Enter card info':'Card scanner'};
+ if(parentPages[current]){missionHistory=[];navigatingBack=true;open(parentPages[current]);return}
+ if(!settingsRoots.has(current)&&missionHistory.length){const previous=missionHistory.pop();navigatingBack=true;open(previous);return}
+ current='';missionHistory=[];navigatingBack=false;
+ sp.classList.remove('open');sp.setAttribute('aria-hidden','true');action.style.display='none';
+ const modal=document.getElementById('modal');if(modal)modal.classList.remove('open');
+};
+// Render original screenshot-backed screen on direct click; retain original navigation for all other entries.
+})();
+</script>
+
+<style id="bugfix-preferences-20261118">
+/* The original generic modal must never remain behind a full-screen subpage. */
+#app:has(#spPage.open) #modal.open {display:none!important}
+/* Screenshot-matched linked businesses landing page. */
+.sp-page .fix-business-screen{position:relative;min-height:1120px;padding-top:42px}
+.sp-page .fix-business-art{position:relative;width:700px;height:430px;margin:0 auto 45px;perspective:950px}
+.sp-page .fix-business-tile{position:absolute;display:flex;align-items:center;justify-content:center;width:166px;height:103px;border-radius:25px;color:white;font-size:32px;font-weight:900;letter-spacing:-1px;transform:rotate(-26deg) skew(12deg,5deg);box-shadow:0 16px 0 var(--side),0 22px 24px #0007;background:var(--tile);text-shadow:0 1px 2px #0003}
+.sp-page .fix-business-tile:nth-child(1){left:268px;top:0}
+.sp-page .fix-business-tile:nth-child(2){left:135px;top:80px}
+.sp-page .fix-business-tile:nth-child(3){left:403px;top:80px}
+.sp-page .fix-business-tile:nth-child(4){left:4px;top:164px}
+.sp-page .fix-business-tile:nth-child(5){left:267px;top:164px}
+.sp-page .fix-business-tile:nth-child(6){left:535px;top:164px}
+.sp-page .fix-business-tile:nth-child(7){left:134px;top:248px}
+.sp-page .fix-business-tile:nth-child(8){left:402px;top:248px;color:#df2746}
+.sp-page .fix-business-tile:nth-child(9){left:269px;top:332px}
+.sp-page .fix-business-heading{font-size:61px;line-height:1.08;letter-spacing:-2.6px;font-weight:900;text-align:center;margin:26px -5px 0}
+.sp-page .fix-qr-heading{font-size:66px;line-height:1.05;font-weight:900;letter-spacing:-2.7px;margin:10px 0 28px}
+.sp-page .fix-qr-desc{font-size:35px;line-height:1.42;margin:0 0 40px}
+.sp-page .fix-qr-add{display:flex;align-items:center;gap:54px;width:100%;height:116px;background:none;border:0;color:#fff;text-align:left;font-size:32px;padding:0 60px}
+.sp-page .fix-qr-add .plus{font-size:55px;font-weight:300}
+.sp-page .fix-qr-add .arrow{margin-left:auto;font-size:52px;color:#aaa}
+.sp-page .fix-qr-later{position:absolute;bottom:10px;left:0;width:100%;height:100px;background:none;border:0;color:#fff;font-size:32px;font-weight:750}
+.sp-page.fix-business-open .sp-back,.sp-page.fix-qr-open .sp-back{display:none}
+.sp-page .fix-top-x{position:absolute;top:102px;right:32px;z-index:5;width:94px;height:94px;border:1px solid #444;border-radius:50%;background:#202020;color:#fff;font-size:59px;line-height:1}
+.sp-page .fix-info{right:145px;font-size:44px}
+.sp-page.fix-business-open .sp-scroll{top:215px;bottom:90px}
+.sp-page.fix-qr-open .sp-scroll{top:210px;bottom:155px}
+.sp-page.fix-qr-open .sp-action{display:none!important}
+.sp-page.fix-business-open~#bottomNav,.sp-page.fix-qr-open~#bottomNav{display:none}
+</style>
+<script id="bugfix-preferences-20261118-logic">
+(()=>{
+ 'use strict';
+ const sp=document.getElementById('spPage'),body=document.getElementById('spBody'),pref=document.querySelector('#accountsContent .preference-card');
+ if(!sp||!body||!pref)return;
+ const closeGeneric=()=>{const modal=document.getElementById('modal');if(modal)modal.classList.remove('open')};
+ const previousGo=window.spGo;
+ window.spGo=function(name,...args){closeGeneric();sp.classList.remove('fix-business-open','fix-qr-open');return previousGo(name,...args)};
+ const previousClose=window.spClose;
+ window.spClose=function(...args){sp.classList.remove('fix-business-open','fix-qr-open');closeGeneric();return previousClose(...args)};
+ function closePage(){sp.classList.remove('fix-business-open','fix-qr-open');sp.classList.remove('open');sp.setAttribute('aria-hidden','true');closeGeneric()}
+ function displayPage(kind,markup){closeGeneric();sp.classList.remove('fix-business-open','fix-qr-open');sp.classList.add('open','fix-'+kind+'-open');sp.setAttribute('aria-hidden','false');body.innerHTML=markup;body.scrollTop=0;document.getElementById('spAction').style.display='none'}
+ function linkedBusinesses(){
+  const colors=[['#3267cb','#1a3778'],['#ff8612','#b84407'],['#262626','#111'],['#0765ed','#063a9d'],['#1451b8','#0a2b78'],['#1382a6','#06495c'],['#0c9c54','#056332'],['#f8f8f8','#bcbcbc'],['#ff2455','#b0092e']];
+  const tiles=colors.map(([c,d],i)=>`<span class="fix-business-tile" style="--tile:${c};--side:${d}"><img src="babylogo.png" alt="baby" class="fix-tile-logo"></span>`).join('');
+  displayPage('business',`<button class="fix-top-x" data-fix-close aria-label="Close">×</button><div class="fix-business-screen"><div class="fix-business-art">${tiles}</div><h1 class="fix-business-heading">Check out faster by linking baby to your favorite businesses</h1></div>`)
+ }
+ function qrPayments(){
+  displayPage('qr',`<button class="fix-top-x fix-info" data-fix-info aria-label="Information">ⓘ</button><button class="fix-top-x" data-fix-close aria-label="Close">×</button><h1 class="fix-qr-heading">Choose a preferred way to pay with QR codes</h1><p class="fix-qr-desc">We'll use this when you shop in stores with a QR codes.</p><button class="fix-qr-add" data-fix-add><span class="plus">＋</span><span>Add a way to pay</span><span class="arrow">›</span></button><button class="fix-qr-later" data-fix-close>Not now</button>`)
+ }
+ // Capture before the parent preference-card's legacy click handler. This prevents
+ // the original generic modal from opening underneath the new full-screen page.
+ pref.addEventListener('click',event=>{
+  const target=event.target.closest('.preference-row');if(!target||!pref.contains(target))return;
+  const label=(target.querySelector('.preference-text')?.textContent||'').trim().toLowerCase();
+  if(!label.startsWith('linked businesses')&&!label.startsWith('qr code payments'))return;
+  event.preventDefault();event.stopImmediatePropagation();event.stopPropagation();
+  if(label.startsWith('linked businesses'))linkedBusinesses();else qrPayments();
+ },true);
+ // Also route the same entries when they are opened from Settings.
+ const settings=document.getElementById('settingsContent');
+ if(settings)settings.addEventListener('click',event=>{
+  const el=event.target.closest('[data-setting-action]');if(!el)return;
+  if(el.dataset.settingAction==='info:Linked businesses'){
+   event.preventDefault();event.stopImmediatePropagation();linkedBusinesses();
+  }
+ },true);
+ body.addEventListener('click',event=>{
+  if(!sp.classList.contains('fix-business-open')&&!sp.classList.contains('fix-qr-open'))return;
+  const el=event.target.closest('[data-fix-close],[data-fix-add],[data-fix-info]');if(!el)return;
+  event.preventDefault();event.stopImmediatePropagation();
+  if(el.hasAttribute('data-fix-close'))closePage();
+  else if(el.hasAttribute('data-fix-add')){closePage();if(typeof window.openWallet==='function')window.openWallet();else window.spGo('Add to Wallet')}
+  else if(el.hasAttribute('data-fix-info')){const p=body.querySelector('.fix-qr-desc');if(p)p.textContent='Choose a linked payment method to use when paying by QR code in stores.'}
+ },true);
+})();
+</script>
+
+<style id="seapickle-navigation-keypad-repair">
+#sendPage #transferContent{position:absolute;inset:0;pointer-events:none}
+#sendPage #transferContent:not(.hidden) .transfer-amount,
+#sendPage #transferContent:not(.hidden) .currency-select,
+#sendPage #transferContent:not(.hidden) .transfer-controls{pointer-events:auto}
+#sendPage #transferContent.motion-enter{animation:none!important;transform:none!important;opacity:1!important}
+#sendPage #transferContent:not(.hidden) .transfer-controls{position:absolute;left:34px;right:34px;bottom:200px;display:block!important;opacity:1!important;visibility:visible!important}
+#sendPage #transferContent:not(.hidden) #transferKeys{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;visibility:visible!important;opacity:1!important}
+</style>
+<script id="seapickle-transfer-repair">(()=>{
+ const old=window.switchSend;
+ window.switchSend=function(tab){
+  old(tab);
+  const transfer=document.getElementById('transferContent');
+  if(tab==='Transfer'){
+   transfer.classList.remove('hidden','motion-enter');
+   transfer.style.removeProperty('transform');
+   const keys=document.getElementById('transferKeys');
+   if(!keys.children.length&&typeof buildKeys==='function')buildKeys('transferKeys',pressTransfer);
+  }
+ };
+ const main=window.switchMain;
+ window.switchMain=function(tab){main(tab);if(tab==='Send'&&window.currentSend==='Transfer')window.switchSend('Transfer')};
+})();</script>
+<style id="transfer-keypad-persistent-fix">
+/* Transfer must never retain a tab animation's final transform or opacity. */
+#sendPage #transferContent:not(.hidden){animation:none!important;transform:none!important;opacity:1!important;visibility:visible!important}
+#sendPage #transferContent:not(.hidden) .transfer-controls,
+#sendPage #transferContent:not(.hidden) #transferKeys,
+#sendPage #transferContent:not(.hidden) #transferKeys .number-key{animation:none!important;transform:none!important;opacity:1!important;visibility:visible!important}
+#sendPage #transferContent:not(.hidden) #transferKeys{display:grid!important}
+</style>
+<script id="transfer-keypad-persistent-fix-script">(()=>{
+  const priorSwitchSend=window.switchSend;
+  window.switchSend=function(tab){
+    priorSwitchSend(tab);
+    if(tab!=='Transfer')return;
+    const content=document.getElementById('transferContent');
+    const keypad=document.getElementById('transferKeys');
+    if(!content||!keypad)return;
+    content.classList.remove('hidden','motion-enter','tab-animated');
+    content.style.removeProperty('animation');
+    content.style.removeProperty('transform');
+    content.style.removeProperty('opacity');
+    keypad.style.removeProperty('animation');
+    keypad.style.removeProperty('transform');
+    keypad.style.removeProperty('opacity');
+    keypad.style.removeProperty('display');
+    if(!keypad.children.length && typeof buildKeys==='function')buildKeys('transferKeys',pressTransfer);
+  };
+})();</script>
+<style id="send-review-visual-style">
+.demo-pay-screen{position:absolute;inset:0;z-index:105;background:#000;color:#fff;display:none;font-family:inherit;overflow:hidden}.demo-pay-screen.active{display:block;animation:spIn .25s ease both}.demo-pay-top{position:absolute;top:100px;left:34px;right:34px;display:flex;justify-content:space-between}.demo-pay-round{width:94px;height:94px;border-radius:50%;border:2px solid #333;background:#202020;color:white;font-size:55px}.demo-pay-content{position:absolute;top:200px;left:34px;right:34px;bottom:220px;overflow-y:auto;scrollbar-width:none}.demo-pay-heading{font-size:62px;font-weight:900;line-height:1.13;letter-spacing:-2.5px;margin:0 0 35px}.demo-pay-heading em{font-style:normal;color:#55c8f5;text-decoration:underline;text-underline-offset:7px}.demo-pay-note{font-size:32px;background:none;border:0;outline:0;color:white;width:100%;padding:0 0 75px}.demo-pay-box{border-radius:48px;background:linear-gradient(125deg,#222,#171717);padding:35px;margin:22px 0;display:flex;gap:26px;align-items:center;min-height:154px;font-size:31px}.demo-pay-icon{flex:none;width:104px;height:104px;border-radius:50%;background:#444;display:grid;place-items:center;font-size:47px}.demo-pay-box small{display:block;color:#aaa;font-size:27px;line-height:1.4;margin-top:8px}.demo-pay-chevron{margin-left:auto;font-size:43px}.demo-pay-summary{margin:80px 35px 0;font-size:29px}.demo-pay-line{display:flex;justify-content:space-between;gap:20px;margin:32px 0}.demo-pay-line span:last-child{text-align:right}.demo-pay-button{position:absolute;bottom:160px;left:34px;right:34px;width:calc(100% - 68px);height:105px;border:0;border-radius:65px;background:#fff;color:#000;font-size:32px;font-weight:800}.demo-pay-success{position:absolute;inset:0;display:none;text-align:center}.demo-pay-success.active{display:block}.demo-pay-check{position:absolute;top:255px;left:calc(50% - 70px);width:140px;height:140px;border-radius:50%;background:#007d62;display:grid;place-items:center;font-size:85px}.demo-pay-sent{position:absolute;top:415px;width:100%;font-size:34px}.demo-pay-center{position:absolute;top:845px;width:100%;font-weight:900}.demo-pay-center strong{display:block;font-size:140px;line-height:1}.demo-pay-center strong small{font-size:65px;vertical-align:top}.demo-pay-center div{font-size:64px}.demo-pay-foot{position:absolute;bottom:320px;left:34px;right:34px;font-size:29px;text-align:center;line-height:1.35}.demo-pay-foot a{color:#58c8f5}.demo-pay-success .demo-pay-button{bottom:165px}
+.demo-recipient-next{position:absolute;top:480px;left:34px;right:34px;height:96px;border:0;border-radius:55px;background:white;color:black;font-size:31px;font-weight:800;display:none;z-index:1}.demo-recipient-next.visible{display:block}.recipient-flow:has(.demo-recipient-next.visible) .recipient-intro{top:650px}.recipient-flow:has(.demo-recipient-next.visible) .recipient-qr{top:930px}
+.demo-card-brand{display:inline-flex;align-items:center;justify-content:center;min-width:105px;height:62px;border-radius:12px;background:#d9e0e6;color:#0c5c86;font-size:23px;font-weight:900}
+/* Review screen: keep long recipient addresses inside the 828px design canvas. */
+#demoPayScreen .demo-pay-heading{font-size:60px;line-height:1.08;letter-spacing:-1.8px;overflow-wrap:anywhere;word-break:normal;max-width:100%}
+#demoPayScreen #demoPayRecipientTop{overflow-wrap:anywhere;word-break:break-word;text-decoration-thickness:3px}
+#demoPayScreen .demo-pay-content{top:202px;bottom:290px;overflow-x:hidden;overflow-y:hidden;padding-bottom:0;overscroll-behavior:contain}
+#demoPayScreen .demo-pay-note{display:block;min-height:65px;padding-bottom:18px;margin-bottom:38px}
+#demoPayScreen .demo-pay-box{min-width:0}
+#demoPayScreen .demo-pay-box>div:nth-child(2){min-width:0;overflow-wrap:anywhere}
+#demoPayScreen .demo-pay-line span{min-width:0;overflow-wrap:anywhere}
+#demoPayScreen .demo-pay-button{bottom:110px}
+#demoPayScreen .demo-pay-success .demo-pay-button{bottom:110px}
+</style>
+<div id="demoPayScreen" class="demo-pay-screen" aria-hidden="true">
+ <div id="demoPayReview">
+  <div class="demo-pay-top"><button class="demo-pay-round" id="demoPayBack">‹</button><button class="demo-pay-round" id="demoPayClose">×</button></div>
+  <div class="demo-pay-content"><h1 class="demo-pay-heading">Send <em id="demoPayAmountTop">1 kr</em> to <em id="demoPayRecipientTop">recipient</em></h1><input class="demo-pay-note" placeholder="Add a note..." maxlength="200">
+   <div class="demo-pay-box"><div class="demo-pay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h18l-2-5H5L3 9Zm1 0v11h16V9M9 20v-7h6v7M3 9c0 4 5 4 5 0m0 0c0 4 4 4 4 0m0 0c0 4 4 4 4 0m0 0c0 4 5 4 5 0"/></svg></div><div>Goods &amp; Services<small>Get a full refund if an eligible item gets lost or damaged. Seller pays a small fee.<br><u style="color:#55c8f5">More on Purchase Protection</u></small></div><span class="demo-pay-chevron">⌄</span></div>
+   <div class="demo-pay-box"><div class="demo-pay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></div><div id="demoPayAddress">No account address added<small>Add your address in Settings</small></div><span class="demo-pay-chevron">⌄</span></div>
+   <div class="demo-pay-box" id="demoPayCardBox"><div class="demo-pay-icon" id="demoPayCardIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h5"/></svg></div><div id="demoPayCard">No card selected<small>Add a card in Wallet</small></div><span class="demo-pay-chevron">⌄</span></div>
+   <div class="demo-pay-summary"><div class="demo-pay-line"><span>Send to</span><span id="demoPayRecipientSummary"></span></div><div class="demo-pay-line"><span>Transfer amount</span><span id="demoPayAmountSummary"></span></div><div class="demo-pay-line"><span>PayPal fee ⓘ</span><span>No fee</span></div><div class="demo-pay-line"><span>Total you pay</span><span id="demoPayTotal"></span></div><div class="demo-pay-line"><span>Estimated delivery</span><span>In seconds</span></div></div>
+  </div><button class="demo-pay-button" id="demoPaySubmit">Pay 1,00 kr</button>
+ </div>
+ <div class="demo-pay-success" id="demoPaySuccess"><button class="demo-pay-round" style="position:absolute;right:34px;top:100px" id="demoPaySuccessClose">×</button><div class="demo-pay-check">✓</div><div class="demo-pay-sent">Sent</div><div class="demo-pay-center"><strong id="demoPaySuccessAmount">1<small>kr</small></strong><div class="demo-pay-recipient-row"><span class="demo-pay-default-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.3-7 8-7s8 2.5 8 7z"/></svg></span><div id="demoPaySuccessRecipient">recipient</div></div></div><div class="demo-pay-foot">We'll let <span id="demoPayFootName">the recipient</span> know that you sent money. View details in your <a href="#" id="demoPayActivityLink">Activity</a>.</div><button class="demo-pay-button" id="demoPayDone">Done</button></div>
+</div>
+<script id="send-review-viewport-fix">(()=>{
+ // All payment screens use the same 828 × 1792 coordinate system as the app.
+ // Mounting this screen directly under <body> bypasses the phone's .471 scale.
+ const review=document.getElementById('demoPayScreen');
+ const app=document.getElementById('app');
+ if(review&&app&&review.parentElement!==app)app.appendChild(review);
+ if(review)review.style.zIndex='110';
+})();</script>
+<script id="send-review-visual-logic">(()=>{
+ const $=id=>document.getElementById(id),screen=$('demoPayScreen'),flow=$('recipientFlow'),recipient=flow.querySelector('.recipient-search input');
+ const next=document.createElement('button');next.type='button';next.className='demo-recipient-next';next.textContent='Next';flow.appendChild(next);
+ let saved=[];try{saved=JSON.parse(localStorage.getItem('baby-demo-card-list')||'[]')}catch{};
+ const card=()=>{try{return JSON.parse(localStorage.getItem('baby-demo-card-list')||'[]')[0]||null}catch{return null}};
+ const clean=s=>String(s||'').replace(/[^\d]/g,'');
+ const amount=()=>{let x=String($('recipientAmount').textContent||'1').replace(/[^\d,\.]/g,'').replace(',','.');return Number(x)||1};
+ const fmt=n=>n.toLocaleString('sv-SE',{minimumFractionDigits:2,maximumFractionDigits:2})+' kr';
+ function showReview(){const r=recipient.value.trim();if(!r)return;const n=amount(),c=card();$('demoPayRecipientTop').textContent=r;$('demoPayRecipientSummary').textContent=r;$('demoPayAmountTop').textContent=fmt(n);$('demoPayAmountSummary').textContent=fmt(n)+' SEK';$('demoPayTotal').textContent=fmt(n)+' SEK';$('demoPaySubmit').textContent='Pay '+fmt(n);$('demoPayAddress').innerHTML='';$('demoPayAddress').append(document.createTextNode(demoProfile.address||'No account address added'));const small=document.createElement('small');small.textContent=demoProfile.address?'Account address':'Add an address in Settings';$('demoPayAddress').append(small);$('demoPayCard').innerHTML='';$('demoPayCard').append(document.createTextNode(c?`${c.brand} ••••${c.last4}`:'No card selected'));const sub=document.createElement('small');sub.textContent=c?`Expires ${c.expiry} · Card`:'Add a card in Wallet';$('demoPayCard').append(sub);$('demoPaySuccessAmount').innerHTML=String(n).replace(/\.\d+$/,'')+'<small>kr</small>';$('demoPaySuccessRecipient').textContent=r;$('demoPayFootName').textContent=r;$('demoPaySuccess').classList.remove('active');$('demoPayReview').style.display='block';screen.classList.add('active');flow.classList.remove('visible')}
+ function close(){screen.classList.remove('active');$('demoPaySuccess').classList.remove('active');$('demoPayReview').style.display='block';screen.setAttribute('aria-hidden','true')}
+ recipient.addEventListener('input',()=>next.classList.toggle('visible',!!recipient.value.trim()));recipient.addEventListener('keydown',e=>{if(e.key==='Enter'&&recipient.value.trim()){e.preventDefault();showReview()}});next.addEventListener('click',showReview);
+ $('demoPayBack').onclick=()=>{close();flow.classList.add('visible')};$('demoPayClose').onclick=close;$('demoPaySuccessClose').onclick=close;$('demoPayDone').onclick=()=>{close();if(typeof window.switchMain==='function')window.switchMain('Me')};
+ $('demoPayCardBox').addEventListener('click',()=>{if(!card()){close();if(typeof window.openWallet==='function')window.openWallet()}});
+ $('demoPaySubmit').onclick=()=>{if(window.babyDemoPay)window.babyDemoPay();else {$('demoPayReview').style.display='none';$('demoPaySuccess').classList.add('active');}};
+ // Format inputs as they are typed; never retain the security code.
+ document.addEventListener('input',e=>{const el=e.target;if(!el.matches('[data-mission-input]'))return;const k=el.dataset.missionInput;if(k==='cardNumber'){let d=clean(el.value).slice(0,19);el.value=d.replace(/(.{4})/g,'$1 ').trim();el.inputMode='numeric';el.autocomplete='off'}if(k==='expiry'){const d=clean(el.value).slice(0,4);el.value=d.length>2?d.slice(0,2)+'/'+d.slice(2):d;el.inputMode='numeric'}if(k==='security'){el.value=clean(el.value).slice(0,4);el.inputMode='numeric';el.autocomplete='off'}},true);
+ // Intercept the old demo card save action and store only non-sensitive display metadata.
+ $('spAction').addEventListener('click',e=>{const body=$('spBody');if(!body.querySelector('[data-mission-input="cardNumber"]'))return;e.stopImmediatePropagation();e.preventDefault();const num=clean(body.querySelector('[data-mission-input="cardNumber"]').value),expiry=body.querySelector('[data-mission-input="expiry"]').value,code=body.querySelector('[data-mission-input="security"]').value,name=body.querySelector('[data-mission-input="cardName"]').value.trim();if(num.length<13||num.length>19||!/^\d{2}\/\d{2}$/.test(expiry)||!/^\d{3,4}$/.test(code)||!name){alert('Enter a valid card number, MM/YY, security code and name. For this demo, use test card details only.');return}const month=Number(expiry.slice(0,2));if(month<1||month>12){alert('Enter a valid expiration month');return}const brand=num.startsWith('4')?'Visa':/^5[1-5]|^2[2-7]/.test(num)?'Mastercard':'Card';saved=[{brand,last4:num.slice(-4),expiry,name}];localStorage.setItem('baby-demo-card-list',JSON.stringify(saved));body.querySelector('[data-mission-input="security"]').value='';window.spClose();if(typeof window.closeWallet==='function')window.closeWallet();if(window.babyRefreshCards)window.babyRefreshCards();alert('Card added. Only its brand, last four digits, expiry and name were saved.');},true);
+})();</script>
+
+<style id="baby-final-polish">
+/* Review is fixed inside the scaled 828x1792 app; no page scrolling. */
+#demoPayScreen .demo-pay-content{top:205px;bottom:255px;overflow:hidden!important;padding-bottom:0!important}
+#demoPayScreen .demo-pay-heading{font-size:51px;line-height:1.07;letter-spacing:-1.7px;margin-bottom:22px;overflow-wrap:anywhere}
+#demoPayScreen .demo-pay-note{font-size:30px;padding:0;margin:0 0 16px;min-height:55px}
+#demoPayScreen .demo-pay-box{border-radius:40px;padding:19px 24px;margin:14px 0;min-height:112px;font-size:28px;gap:20px}
+#demoPayScreen .demo-pay-box small{font-size:23px;line-height:1.27;margin-top:5px}
+#demoPayScreen .demo-pay-icon{width:86px;height:86px;font-size:40px}
+#demoPayScreen .demo-pay-icon svg{width:47px;height:47px}
+#demoPayScreen .demo-pay-summary{margin:34px 18px 0;font-size:25px}
+#demoPayScreen .demo-pay-line{margin:17px 0}
+#demoPayScreen #demoPayRecipientSummary{overflow-wrap:anywhere;max-width:62%}
+#demoPayScreen .demo-pay-button{bottom:95px}
+#demoPayScreen .demo-pay-center{left:35px;right:35px;width:auto;top:825px}
+#demoPayScreen #demoPaySuccessRecipient{font-size:clamp(24px,5vw,54px);overflow-wrap:anywhere;line-height:1.12;max-width:100%}
+#demoPayScreen .demo-pay-foot{bottom:290px}
+#demoPayScreen .demo-pay-foot a{color:#56c8f5;text-decoration:underline;cursor:pointer}
+#activityContent .baby-activity-list{position:absolute;top:410px;left:34px;right:34px;bottom:180px;overflow-y:auto;scrollbar-width:none}
+.baby-activity-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:60px}
+.baby-activity-header h2{font-size:46px;margin:0;font-weight:750}
+.baby-activity-tools{display:flex;gap:24px}
+.baby-activity-tools button{border:0;background:#333;width:72px;height:72px;border-radius:50%;font-size:35px}
+.baby-activity-item{width:100%;border:0;background:transparent;color:#fff;display:flex;align-items:center;gap:24px;text-align:left;margin-bottom:36px;padding:0}
+.baby-activity-icon{width:88px;height:88px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;flex:none}
+.baby-activity-icon svg{width:43px;height:43px}
+.baby-activity-person{font-size:31px;min-width:0;flex:1;overflow-wrap:anywhere}
+.baby-activity-person small{display:block;font-size:27px;color:#aaa;margin-top:5px}
+.baby-activity-value{font-size:31px;align-self:flex-start;white-space:nowrap}
+.linked-box.baby-has-cards{gap:26px}
+.baby-card-mini{width:110px;height:72px;border-radius:8px;background:linear-gradient(130deg,#8ab7ae,#53897d);flex:none;display:flex;align-items:flex-end;justify-content:flex-end;padding:7px;font-size:17px;font-weight:900}
+.baby-card-meta{font-size:31px;min-width:0}.baby-card-meta small{display:block;color:#bcbcbc;margin-top:12px;font-size:28px}
+</style>
+<script id="baby-final-integration">(()=>{
+ const $=id=>document.getElementById(id);
+ const key='baby-demo-activity-v1';let transactions=[];
+ // Clear pre-existing demo history once for this release, while keeping future payments.
+ const initialClearMarker='baby-demo-activity-initial-clear-v1';
+ try{if(localStorage.getItem(initialClearMarker)!=='done'){localStorage.removeItem(key);localStorage.setItem(initialClearMarker,'done')}}catch{}
+ try{transactions=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(transactions))transactions=[]}catch{}
+ const cards=()=>{try{return JSON.parse(localStorage.getItem('baby-demo-card-list')||'[]')}catch{return []}};
+ const money=n=>Number(n).toLocaleString('sv-SE',{minimumFractionDigits:2,maximumFractionDigits:2})+' kr';
+ const amount=()=>{const t=$('demoPayAmountTop').textContent.replace(/[^0-9,.]/g,'').replace(',','.');return Number(t)||0};
+ function refreshCards(){const box=document.querySelector('#accountsContent .linked-box');if(!box)return;const c=cards()[0];if(!c){box.classList.remove('baby-has-cards');box.textContent='Add banks and cards to check out securely with.';return}box.classList.add('baby-has-cards');box.replaceChildren();const pic=document.createElement('span');pic.className='baby-card-mini';pic.textContent=c.brand==='Visa'?'VISA':c.brand==='Mastercard'?'MC':'CARD';const meta=document.createElement('span');meta.className='baby-card-meta';meta.textContent=(c.name||c.brand||'Saved card');const small=document.createElement('small');small.textContent='Debit ••'+c.last4;meta.appendChild(small);box.append(pic,meta)}
+ window.babyRefreshCards=refreshCards;
+ function activity(){
+  const parent=$('activityContent');if(!parent)return;
+  let list=parent.querySelector('.baby-activity-list');
+  if(!list){list=document.createElement('div');list.className='baby-activity-list';parent.appendChild(list)}
+  const empty=parent.querySelector('.empty-activity');
+  const valid=transactions.filter(t=>t && Number.isFinite(Number(t.amount)) && Number(t.amount)>0 && t.date && !Number.isNaN(new Date(t.date).getTime()));
+  if(empty)empty.style.display=valid.length?'none':'flex';
+  list.replaceChildren();if(!valid.length)return;
+  const groups=new Map();
+  for(const t of valid){
+   const date=new Date(t.date);if(Number.isNaN(date.getTime()))continue;
+   const group=date.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+   if(!groups.has(group))groups.set(group,[]);groups.get(group).push(t);
+  }
+  let first=true;
+  for(const [month,items] of groups){
+   const header=document.createElement('div');header.className='baby-activity-header';
+   const heading=document.createElement('h2');heading.textContent=month.replace(/ \d{4}$/,'');header.appendChild(heading);
+   if(first){const tools=document.createElement('div');tools.className='baby-activity-tools';
+    const filter=document.createElement('button');filter.type='button';filter.setAttribute('aria-label','Filter activity');filter.textContent='☷';
+    const search=document.createElement('button');search.type='button';search.setAttribute('aria-label','Search activity');search.textContent='⌕';
+    search.addEventListener('click',()=>{const term=prompt('Search demo payments by recipient');if(term===null)return;list.querySelectorAll('.baby-activity-item').forEach(el=>{el.style.display=el.dataset.recipient.includes(term.toLowerCase())?'flex':'none'})});
+    filter.addEventListener('click',()=>{
+     const menu=document.createElement('div');menu.className='baby-activity-clear-menu';
+     const clear=document.createElement('button');clear.type='button';clear.textContent='Clear activity history';
+     const cancel=document.createElement('button');cancel.type='button';cancel.textContent='Cancel';
+     clear.onclick=()=>{if(!confirm('Clear all demo payment activity? This will remove the history only, not change your balance.'))return;transactions=[];localStorage.removeItem(key);menu.remove();activity()};
+     cancel.onclick=()=>menu.remove();menu.append(clear,cancel);
+     document.querySelectorAll('.baby-activity-clear-menu').forEach(el=>el.remove());
+     header.appendChild(menu);
+    });
+    tools.append(filter,search);header.appendChild(tools);first=false;
+   }
+   list.appendChild(header);
+   for(const t of items){
+    const item=document.createElement('div');item.className='baby-activity-item';item.dataset.recipient=String(t.recipient||'').toLowerCase();
+    const ico=document.createElement('div');ico.className='baby-activity-icon';
+    ico.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h18l-2-5H5L3 9Zm1 0v11h16V9M9 20v-7h6v7M3 9c0 4 5 4 5 0m0 0c0 4 4 4 4 0m0 0c0 4 4 4 4 0m0 0c0 4 5 4 5 0"/></svg>';
+    const who=document.createElement('div');who.className='baby-activity-person';who.textContent=t.recipient||'Recipient';
+    const date=document.createElement('small');date.textContent=new Date(t.date).toLocaleDateString('en-GB',{day:'numeric',month:'short'})+' · Money sent';who.appendChild(date);
+    const price=document.createElement('div');price.className='baby-activity-value';price.textContent='-'+money(t.amount);
+    item.append(ico,who,price);list.appendChild(item);
+   }
+  }
+ }
+ function openActivity(e){if(e)e.preventDefault();$('demoPayScreen').classList.remove('active');$('demoPaySuccess').classList.remove('active');$('demoPayReview').style.display='block';if(typeof window.switchMain==='function')window.switchMain('Me');if(typeof window.switchMe==='function')window.switchMe('Activity');activity()}
+ $('demoPayActivityLink').addEventListener('click',openActivity);
+ window.babyDemoPay=()=>{const n=amount();const recipient=$('demoPayRecipientTop').textContent.trim();const b=Number(String($('balance').textContent).replace(/[^\d,.]/g,'').replace(',','.'))||0;
+ if(!(n>0)){alert('Enter a valid demo payment amount.');return}
+ if(n>b+0.00001){alert('Insufficient PayPal balance. You have '+money(b)+' available.');return}
+ const updated=Math.round((b-n)*100)/100;window.balance=updated;$('balance').textContent=money(updated);
+ transactions.unshift({recipient,amount:n,date:new Date().toISOString()});localStorage.setItem(key,JSON.stringify(transactions));activity();$('demoPaySuccess').classList.add('active');$('demoPayReview').style.display='none';$('demoPaySuccessAmount').innerHTML=(Number.isInteger(n)?String(n):n.toLocaleString('sv-SE',{maximumFractionDigits:2}))+'<small>kr</small>';};
+ const oldMe=window.switchMe;window.switchMe=function(name){oldMe(name);if(name==='Activity')activity();if(name==='Accounts')refreshCards()};
+ const oldClose=window.closeWallet;window.closeWallet=function(){oldClose();refreshCards();const nav=$('bottomNav');if(nav)nav.style.removeProperty('display')};
+ const oldMain=window.switchMain;window.switchMain=function(name){oldMain(name);if(name==='Me')$('bottomNav').style.removeProperty('display')};
+ refreshCards();activity();
+})();</script>
+
+<style id="battle-viewport-and-topup">
+/* Full-height review in the original 828 × 1792 app coordinate system. */
+#demoPayScreen .demo-pay-top{top:100px}
+#demoPayScreen .demo-pay-content{top:204px;bottom:245px;left:34px;right:34px;overflow:hidden!important}
+#demoPayScreen .demo-pay-heading{font-size:59px;line-height:1.1;margin-bottom:30px;letter-spacing:-1.8px}
+#demoPayScreen .demo-pay-note{font-size:33px;min-height:80px;margin:0 0 42px;padding:0}
+#demoPayScreen .demo-pay-box{min-height:150px;padding:28px 32px;margin:23px 0;border-radius:45px;font-size:31px;gap:25px}
+#demoPayScreen .demo-pay-icon{width:100px;height:100px;flex-shrink:0}
+#demoPayScreen .demo-pay-icon svg{width:55px;height:55px}
+#demoPayScreen .demo-pay-box small{font-size:27px;line-height:1.34}
+#demoPayScreen .demo-pay-summary{margin:68px 22px 0;font-size:29px}
+#demoPayScreen .demo-pay-line{margin:26px 0}
+#demoPayScreen .demo-pay-button{bottom:105px}
+#demoPayScreen #demoPayRecipientTop{overflow-wrap:anywhere}
+#demoPayScreen .demo-pay-success .demo-pay-button{bottom:105px}
+.mission-saved-funding{display:flex;align-items:center;gap:24px;margin:32px 0;color:#fff;font-size:34px}
+.mission-saved-funding small{display:block;color:#aaa;font-size:25px;margin-top:10px}
+.mission-funding-icon{display:grid;place-items:center;background:#484848;border-radius:18px;width:90px;height:65px;font-size:48px}
+.mission-funding-change{background:transparent;color:#56c8f5;border:0;font-size:26px;text-align:left;padding:12px 0}
+.mission-demo-disclaimer{font-size:25px;color:#aaa;line-height:1.45;margin:35px 20px}
+</style>
+
+<!-- Keep navigation hidden only while an actual full-screen flow is active.
+     Hidden page content must not suppress the tabs after a top-up. -->
+<style id="baby-nav-lifecycle-fix">
+#app:not(:has(#moneyScreen.open, #moneyScreen.loading, #moneyScreen.ready, #moneyScreen.leaving, #spPage.open, #demoPayScreen.active, #recipientFlow.visible)) #bottomNav {
+ display:flex!important; visibility:visible!important; pointer-events:auto!important;
+}
+#app:has(#moneyScreen.leaving) #bottomNav {display:none!important}
+</style>
+<script id="baby-nav-lifecycle-script">
+(()=>{
+ const nav=document.getElementById('bottomNav');
+ const money=document.getElementById('moneyScreen');
+ const settings=document.getElementById('spPage');
+ const pay=document.getElementById('demoPayScreen');
+ if(!nav||!money||!settings||!pay)return;
+ function syncNav(){
+  const blocked=['open','loading','ready','leaving'].some(c=>money.classList.contains(c)) || settings.classList.contains('open') || pay.classList.contains('active');
+  if(!blocked){nav.style.removeProperty('display');nav.style.removeProperty('visibility');nav.style.removeProperty('pointer-events')}
+ }
+ const observer=new MutationObserver(syncNav);
+ for(const el of [money,settings,pay])observer.observe(el,{attributes:true,attributeFilter:['class']});
+ syncNav();
+})();
+</script>
+<!-- Add Money navigation and account/cardholder-name synchronization -->
+<style id="baby-money-nav-cardholder-fix">
+/* The money keypad is a full-screen flow, not part of the bottom tabs. */
+#app:has(#moneyScreen.open) #bottomNav,
+#app:has(#moneyScreen.loading) #bottomNav,
+#app:has(#moneyScreen.ready) #bottomNav,
+#app:has(#spPage.open) #bottomNav,
+#app:has(#demoPayScreen.active) #bottomNav{display:none!important;visibility:hidden!important;pointer-events:none!important}
+#moneyScreen.open,#moneyScreen.loading,#moneyScreen.ready{z-index:120!important}
+#moneyScreen.leaving{z-index:120!important}
+</style>
+<script id="baby-account-cardholder-name-fix">
+(()=>{
+ 'use strict';
+ const profileName=()=>String((typeof demoProfile!=='undefined'&&demoProfile.name)||'').trim()||'YOUR NAME';
+ const cardsKey='baby-demo-card-list';
+ function sync(){
+  const name=profileName();
+  const heading=document.querySelector('#mePage .top-heading h1');
+  if(heading&&heading.textContent!==name)heading.textContent=name;
+  const input=document.querySelector('#spBody [data-mission-input="cardName"]');
+  if(input){input.value=name;input.readOnly=true;input.setAttribute('aria-label','Name on card (same as account name)');}
+  try{
+   const cards=JSON.parse(localStorage.getItem(cardsKey)||'[]');
+   if(Array.isArray(cards)&&cards.length&&cards.some(c=>c.name!==name)){
+    cards.forEach(c=>c.name=name);
+    localStorage.setItem(cardsKey,JSON.stringify(cards));
+    if(typeof window.babyRefreshCards==='function')window.babyRefreshCards();
+   }
+  }catch(e){}
+ }
+ // The card form is dynamically rendered when navigating to Enter card info.
+ const cardBody=document.getElementById('spBody');
+ if(cardBody)new MutationObserver(sync).observe(cardBody,{childList:true,subtree:false});
+ // Keep the displayed name synchronized after a profile edit is saved.
+ const originalSave=window.demoSave;
+ if(typeof originalSave==='function')window.demoSave=function(...args){const result=originalSave(...args);sync();return result};
+ // Ensure the saved card is assigned the account name at the moment Save is pressed.
+ const saveButton=document.getElementById('spAction');
+ if(saveButton)saveButton.addEventListener('click',()=>{
+  const input=document.querySelector('#spBody [data-mission-input="cardName"]');
+  if(input)input.value=profileName();
+ },true);
+ sync();
+})();
+</script>
+
+<style id="baby-success-avatar-and-email-fix">
+/* Keep the email legible at the app's native 828px canvas size. */
+#demoPayScreen .demo-pay-center{left:28px;right:28px;width:auto;top:825px}
+#demoPayScreen .demo-pay-recipient-row{display:flex;align-items:center;justify-content:center;gap:17px;width:100%;margin-top:24px;min-width:0}
+#demoPayScreen .demo-pay-default-avatar{flex:0 0 72px;width:72px;height:72px;border-radius:50%;background:#363636;color:#fff;display:grid;place-items:center}
+#demoPayScreen .demo-pay-default-avatar svg{width:44px;height:44px}
+#demoPayScreen #demoPaySuccessRecipient{font-size:43px!important;font-weight:800;line-height:1.12;overflow-wrap:anywhere;word-break:break-word;min-width:0;max-width:calc(100% - 89px);text-align:left}
+</style>
+
+<style id="activity-empty-visibility-fix">
+/* Keep the empty state in the visible Activity panel, even when the list has no entries. */
+#activityContent:not(.hidden){position:absolute;inset:0;display:block;pointer-events:none}
+#activityContent:not(.hidden) .empty-activity{position:absolute;top:690px;left:34px;right:34px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:3}
+#activityContent:not(.hidden) .baby-activity-list{z-index:4;pointer-events:auto}
+#activityContent:not(.hidden) .empty-activity[style*="display: none"]{display:none!important}
+</style>
+
+<style id="baby-activity-clear-and-recipient-nav">
+/* Recipient entry is a full-screen step: never show bottom navigation behind it. */
+#app:has(#recipientFlow.visible) #bottomNav{display:none!important;visibility:hidden!important;pointer-events:none!important}
+.baby-activity-header{position:relative}
+.baby-activity-clear-menu{position:absolute;z-index:30;right:0;top:84px;width:360px;padding:15px;background:#262626;border:2px solid #555;border-radius:24px;box-shadow:0 16px 35px #0009}
+.baby-activity-clear-menu button{display:block;width:100%;background:transparent;color:#fff;border:0;padding:22px 15px;text-align:left;font-size:26px}
+.baby-activity-clear-menu button:first-child{color:#ff7777;border-bottom:1px solid #444}
+</style>
+
+<!-- Display-only terminology update. Original functions, keys, classes, and image paths are untouched. -->
+<script id="display-terminology-only">
+(()=>{
+  const translate = text => text.replace(/baby|demo/gi, word => {
+    const target = word.toLowerCase()==='baby' ? 'PayPal' : '';
+    return word===word.toUpperCase() ? target.toUpperCase() :
+      word[0]===word[0].toUpperCase() ? target[0].toUpperCase()+target.slice(1) : target;
+  });
+  const excluded = new Set(['SCRIPT','STYLE','NOSCRIPT','TEXTAREA','OPTION']);
+  function update(root){
+    if(root.nodeType===Node.TEXT_NODE){
+      const parent=root.parentElement;
+      if(!parent || excluded.has(parent.tagName) || parent.closest('[contenteditable="true"]')) return;
+      const next=translate(root.nodeValue);
+      if(next!==root.nodeValue) root.nodeValue=next;
+      return;
+    }
+    if(root.nodeType!==Node.ELEMENT_NODE && root.nodeType!==Node.DOCUMENT_NODE) return;
+    if(root.nodeType===Node.ELEMENT_NODE && excluded.has(root.tagName)) return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(update);
+    if(root.nodeType===Node.ELEMENT_NODE){
+      const elements=[root,...root.querySelectorAll('[placeholder],[aria-label],[title],[alt]')];
+      for(const el of elements){
+        for(const attr of ['placeholder','aria-label','title','alt']){
+          if(el.hasAttribute(attr)){
+            const old=el.getAttribute(attr),next=translate(old);
+            if(old!==next)el.setAttribute(attr,next);
+          }
+        }
+      }
+    }
+  }
+  update(document.body);
+  const observer=new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='characterData')update(record.target);
+      else if(record.type==='childList')record.addedNodes.forEach(update);
+    }
+  });
+  observer.observe(document.body,{subtree:true,childList:true,characterData:true});
+  const oldAlert=window.alert.bind(window),oldConfirm=window.confirm.bind(window);
+  window.alert=message=>oldAlert(translate(String(message)));
+  window.confirm=message=>oldConfirm(translate(String(message)));
+})();
+</script>
+</body>
+</html>
