@@ -1970,5 +1970,33 @@ const oldClose=window.spClose;window.spClose=function(){
   window.confirm=message=>oldConfirm(translate(String(message)));
 })();
 </script>
+
+<!-- Targeted fixes: profile name save and Settings navigation visibility. -->
+<style id="settings-nav-visibility-fix">
+#app:has(#mePage.active #settingsContent:not(.hidden)) #bottomNav{display:none!important;visibility:hidden!important;pointer-events:none!important}
+</style>
+<script id="settings-name-save-fix">
+(()=>{
+  // The profile editor uses the existing modal and existing persistent profile object.
+  // Make Save changes work even if another screen has replaced the global handler.
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('#modal .modal-action');
+    if(!button || !/save changes/i.test(button.textContent||''))return;
+    if(typeof demoEditing==='undefined'||demoEditing!=='name')return;
+    const field=document.getElementById('demoEditInput');
+    if(!field)return;
+    event.preventDefault();event.stopImmediatePropagation();
+    const name=field.value.trim().replace(/\s+/g,' ');
+    if(!name){field.focus();field.setCustomValidity('Please enter a name');field.reportValidity();field.setCustomValidity('');return}
+    demoProfile.name=name;
+    demoSave();
+    renderOriginalSettings();
+    const heading=document.querySelector('#mePage .top-heading h1');
+    if(heading)heading.textContent=name;
+    if(typeof closeModal==='function')closeModal();
+  },true);
+  // Existing tab switching stays intact; CSS handles visibility on every transition.
+})();
+</script>
 </body>
 </html>
